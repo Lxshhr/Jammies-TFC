@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.lxshh.jammies.mixin",
+  "mixins": [
+    "JamPotRecipeMixin", "JamPotRecipeOutputMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "jammies.refmap.json"
+}

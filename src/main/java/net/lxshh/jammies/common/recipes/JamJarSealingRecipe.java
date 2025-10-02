@@ -66,13 +66,23 @@ public class JamJarSealingRecipe implements CraftingRecipe {
     }
 
     @Override
+    public NonNullList<Ingredient> getIngredients() {
+        NonNullList<Ingredient> ingredients = NonNullList.create();
+
+        ingredients.add(lid);
+        ingredients.add(jar);
+
+        return ingredients;
+    }
+
+    @Override
     public NonNullList<ItemStack> getRemainingItems(CraftingInput input) {
         return NonNullList.withSize(input.size(), ItemStack.EMPTY);
     }
 
     @Override
-    public boolean canCraftInDimensions(int i, int i1) {
-        return true;
+    public boolean canCraftInDimensions(int width, int height) {
+        return width * height >= 2;
     }
 
     @Override

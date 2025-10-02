@@ -55,6 +55,14 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
     }
 
     @Override
+    public NonNullList<Ingredient> getIngredients() {
+        NonNullList<Ingredient> ingredients = NonNullList.create();
+
+        ingredients.add(sealedJar);
+        return ingredients;
+    }
+
+    @Override
     public NonNullList<ItemStack> getRemainingItems(CraftingInput input) {
         NonNullList<ItemStack> remainingItems = NonNullList.withSize(input.size(), ItemStack.EMPTY);
 
@@ -93,8 +101,6 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
                 }
             }
         }
-
-//
 
         return ItemStack.EMPTY;
     }

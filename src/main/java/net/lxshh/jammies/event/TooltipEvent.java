@@ -23,10 +23,11 @@ public final class TooltipEvent {
 
             if (tag.contains("lidType")) {
                 String lidItem = tag.getString("lidType");
+                // TODO: Add componentTranslatable to lidProperties
                 String lidDisplayName = "item." +  lidItem.replace(":", ".");
                 event.getToolTip()
-                        .add(Component.translatable("message.jammies.start.lid").withStyle(ChatFormatting.YELLOW)
-                                .append(Component.translatable(lidDisplayName)).withStyle(ChatFormatting.GRAY));
+                        .add(Component.translatable("message.jammies.start.lid")
+                                .append(Component.translatable(lidDisplayName)));
             }
         }
     }

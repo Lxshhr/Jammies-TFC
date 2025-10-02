@@ -1,4 +1,5 @@
 {
-  "message.jammies.start.lid" : "Lid:",
-  "item.jammies.aluminium_lid": "Aluminium Lid"
+  "message.jammies.start.lid" : "§eLid: ",
+  "item.jammies.aluminium_lid" : "Aluminium Lid",
+  "item.jar_lid" : "Tin Lid"
 }
