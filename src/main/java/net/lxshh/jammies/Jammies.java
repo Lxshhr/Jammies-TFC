@@ -1,5 +1,6 @@
 package net.lxshh.jammies;
 
+import net.lxshh.jammies.common.data.JammiesDataComponent;
 import net.lxshh.jammies.common.items.JammiesItems;
 import net.lxshh.jammies.common.recipes.JammiesRecipeSerializers;
 import net.lxshh.jammies.event.TooltipEvent;
@@ -21,6 +22,7 @@ public class Jammies {
     public Jammies(IEventBus modEventBus, ModContainer modContainer, Dist dist) {
         JammiesItems.ITEMS.register(modEventBus);
 
+        JammiesDataComponent.DATA_COMPONENTS.register(modEventBus);
         JammiesRecipeSerializers.RECIPE_SERIALIZERS.register(modEventBus);
 
         if (dist == Dist.CLIENT) {

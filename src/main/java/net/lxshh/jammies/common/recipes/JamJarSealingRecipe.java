@@ -2,6 +2,8 @@ package net.lxshh.jammies.common.recipes;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.lxshh.jammies.common.data.JammiesDataComponent;
+import net.lxshh.jammies.common.data.LidDataComponent;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
@@ -55,13 +57,8 @@ public class JamJarSealingRecipe implements CraftingRecipe {
                 lid = stack;
             }
         }
-
-        ResourceLocation lidId = BuiltInRegistries.ITEM.getKey(lid.getItem());
-        CompoundTag lidType = new CompoundTag();
-        lidType.putString("lidType", lidId.toString());
-
         ItemStack result = getResultItem(provider).copy();
-        result.set(DataComponents.CUSTOM_DATA, CustomData.of(lidType));
+        result.set(JammiesDataComponent.JAR_LID_COMPONENT.get(), LidDataComponent.of(lid));
         return result;
     }
 

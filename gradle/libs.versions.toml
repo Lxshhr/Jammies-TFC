@@ -13,7 +13,7 @@ patchouli = "1.21.1-92-NEOFORGE"
 jade = "15.10.0+neoforge"
 
 # Curse Maven  #
-tfc = "6993587"
+tfc = "7072352"
 
 [libraries]
 jei-common-api = { module = "mezz.jei:jei-1.21.1-common-api", version.ref = "jei" }

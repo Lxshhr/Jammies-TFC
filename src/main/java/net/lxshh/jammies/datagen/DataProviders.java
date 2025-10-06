@@ -1,4 +1,4 @@
-package net.lxshh.jammies.data;
+package net.lxshh.jammies.datagen;
 
 import net.lxshh.jammies.Jammies;
 import net.minecraft.core.HolderLookup;

@@ -3,6 +3,8 @@ package net.lxshh.jammies.common.recipes;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.dries007.tfc.common.items.TFCItems;
+import net.lxshh.jammies.common.data.JammiesDataComponent;
+import net.lxshh.jammies.common.data.LidDataComponent;
 import net.lxshh.jammies.common.items.JammiesItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -41,7 +43,7 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
             ItemStack stack = craftingInput.getItem(i);
             if (!stack.isEmpty()) {
                 itemCount ++;
-                if (sealedJar.test(stack) && stack.has(DataComponents.CUSTOM_DATA) && stack.get(DataComponents.CUSTOM_DATA).copyTag().contains("lidType")) {
+                if (sealedJar.test(stack) && stack.has(JammiesDataComponent.JAR_LID_COMPONENT)) {
                     hasSealedJar = true;
                 }
             }
@@ -68,7 +70,7 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
 
         for (int i = 0; i < input.size(); i++) {
             ItemStack stack = input.getItem(i);
-            if (!stack.isEmpty() && sealedJar.test(stack) && stack.has(DataComponents.CUSTOM_DATA) && stack.get(DataComponents.CUSTOM_DATA).copyTag().contains("lidType") ) {
+            if (!stack.isEmpty() && sealedJar.test(stack) && stack.has(JammiesDataComponent.JAR_LID_COMPONENT)) {
                 RandomSource randomSource = RandomSource.create();
                 ItemStack lidReturn =  getReturnLid(stack, randomSource);
                 if (!lidReturn.isEmpty()) {
@@ -80,25 +82,19 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
     }
 
     public ItemStack getReturnLid(ItemStack itemStack, RandomSource randomSource) {
-        CustomData customData = itemStack.get(DataComponents.CUSTOM_DATA);
-        CompoundTag tag = customData.copyTag();
+        LidDataComponent component = itemStack.get(JammiesDataComponent.JAR_LID_COMPONENT.get());
+        assert component != null;
+        Item lidItem = component.lidStack().copy().getItem();
 
-        String lidItemType = tag.getString("lidType");
-
-        ResourceLocation lidItemId = ResourceLocation.parse(lidItemType);
-
-        if (lidItemId != null) {
-            Item lidItem = BuiltInRegistries.ITEM.get(lidItemId);
-            if (lidItem == TFCItems.JAR_LID.get()) {
-                // 50% Chance
-                if (randomSource.nextFloat() > 0.5F) {
-                    return new ItemStack(TFCItems.JAR_LID.get(), 1);
+        if (lidItem == TFCItems.JAR_LID.get()) {
+            // 50% Chance
+            if (randomSource.nextFloat() > 0.5F) {
+                return new ItemStack(TFCItems.JAR_LID.get(), 1);
             }
-            } else if (lidItem == JammiesItems.ALUMINIUM_LID.get()) {
-                // 80% Chance
-                if (randomSource.nextFloat() < 0.8F) {
-                    return new ItemStack(JammiesItems.ALUMINIUM_LID.get(), 1);
-                }
+        } else if (lidItem == JammiesItems.ALUMINIUM_LID.get()) {
+            // 80% Chance
+            if (randomSource.nextFloat() < 0.8F) {
+                return new ItemStack(JammiesItems.ALUMINIUM_LID.get(), 1);
             }
         }
 
