@@ -1,11 +1,13 @@
 package net.lxshh.jammies;
 
-import net.lxshh.jammies.common.data.JammiesDataComponent;
+import net.lxshh.jammies.common.util.JammiesDataComponent;
+import net.lxshh.jammies.common.util.data.JammiesDataManagers;
 import net.lxshh.jammies.common.items.JammiesItems;
 import net.lxshh.jammies.common.recipes.JammiesRecipeSerializers;
 import net.lxshh.jammies.event.TooltipEvent;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.registries.NewRegistryEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -23,10 +25,17 @@ public class Jammies {
         JammiesItems.ITEMS.register(modEventBus);
 
         JammiesDataComponent.DATA_COMPONENTS.register(modEventBus);
+        JammiesDataManagers.MANAGERS.register(modEventBus);
         JammiesRecipeSerializers.RECIPE_SERIALIZERS.register(modEventBus);
+
+        modEventBus.addListener(this::registerRegistries);
 
         if (dist == Dist.CLIENT) {
             TooltipEvent.init(NeoForge.EVENT_BUS);
         }
+    }
+
+    public void registerRegistries(NewRegistryEvent event) {
+        event.register(JammiesDataManagers.REGISTRY);
     }
 }
