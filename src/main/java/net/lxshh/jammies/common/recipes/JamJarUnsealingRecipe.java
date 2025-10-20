@@ -80,18 +80,23 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
         LidDataComponent component = itemStack.get(JammiesDataComponent.JAR_LID_COMPONENT.get());
         assert component != null;
         Item lidItem = component.lidStack().copy().getItem();
+        float returnChance = component.returnChance();
 
-        if (lidItem == TFCItems.JAR_LID.get()) {
-            // 50% Chance
-            if (randomSource.nextFloat() > 0.5F) {
-                return new ItemStack(TFCItems.JAR_LID.get(), 1);
-            }
-        } else if (lidItem == JammiesItems.ALUMINIUM_LID.get()) {
-            // 80% Chance
-            if (randomSource.nextFloat() < 0.8F) {
-                return new ItemStack(JammiesItems.ALUMINIUM_LID.get(), 1);
-            }
+        if (randomSource.nextFloat() < returnChance) {
+            return new ItemStack(lidItem, 1);
         }
+
+//        if (lidItem == TFCItems.JAR_LID.get()) {
+//            // 50% Chance
+//            if (randomSource.nextFloat() > 0.5F) {
+//                return new ItemStack(TFCItems.JAR_LID.get(), 1);
+//            }
+//        } else if (lidItem == JammiesItems.ALUMINIUM_LID.get()) {
+//            // 80% Chance
+//            if (randomSource.nextFloat() < 0.8F) {
+//                return new ItemStack(JammiesItems.ALUMINIUM_LID.get(), 1);
+//            }
+//        }
 
         return ItemStack.EMPTY;
     }

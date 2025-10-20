@@ -15,15 +15,7 @@ public class JammiesItems {
 
     public static final DeferredItem<Item> ALUMINIUM_LID = register("aluminium_lid");
 
-    public static final DeferredItem<Item> EMPTY_CLAY_JAR = register("empty_clay_jar");
-    public static final Map<Food, DeferredItem<Item>> CLAY_PRESERVES = Helpers.mapOf(Food.class, Food::hasJam, food ->
-            register("ceramic/jar/" + food.name(), () -> new Item(new Item.Properties().craftRemainder(JammiesItems.EMPTY_CLAY_JAR.asItem()))));
-
     private static DeferredItem<Item> register(String name) {
         return ITEMS.registerSimpleItem(name);
-    }
-
-    private static DeferredItem<Item> register(String name, Supplier<Item> item) {
-        return ITEMS.register(name, item);
     }
 }
