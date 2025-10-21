@@ -1,13 +1,10 @@
 package net.lxshh.jammies;
 
-import net.dries007.tfc.util.data.DataManager;
-import net.dries007.tfc.util.data.DataManagers;
 import net.lxshh.jammies.common.util.JammiesDataComponent;
 import net.lxshh.jammies.common.items.JammiesItems;
 import net.lxshh.jammies.common.recipes.JammiesRecipeSerializers;
 import net.lxshh.jammies.common.util.JammiesDataManagerSyncPacket;
 import net.lxshh.jammies.common.util.JammiesDataManagers;
-import net.lxshh.jammies.common.util.data.LidProperties;
 import net.lxshh.jammies.event.TooltipEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.api.distmarker.Dist;

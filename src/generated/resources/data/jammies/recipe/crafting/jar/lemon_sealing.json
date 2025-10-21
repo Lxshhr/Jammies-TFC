@@ -1,0 +1,21 @@
+{
+  "type": "jammies:jar_sealing",
+  "jar": {
+    "type": "tfc:and",
+    "children": [
+      {
+        "item": "tfc:jar/lemon_unsealed"
+      },
+      {
+        "type": "tfc:not_rotten"
+      }
+    ]
+  },
+  "lid": {
+    "tag": "jammies:lids"
+  },
+  "result": {
+    "count": 1,
+    "id": "tfc:jar/lemon"
+  }
+}

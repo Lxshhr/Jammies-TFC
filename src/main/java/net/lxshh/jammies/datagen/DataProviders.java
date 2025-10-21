@@ -21,6 +21,7 @@ public class DataProviders {
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
+        generator.addProvider(event.includeServer(), new RecipeProvider(packOutput, lookupProvider));
     }
 
 }

@@ -1,0 +1,18 @@
+{
+  "type": "jammies:jar_unsealing",
+  "jar": {
+    "type": "tfc:and",
+    "children": [
+      {
+        "item": "tfc:jar/bunchberry"
+      },
+      {
+        "type": "tfc:not_rotten"
+      }
+    ]
+  },
+  "result": {
+    "count": 1,
+    "id": "tfc:jar/bunchberry_unsealed"
+  }
+}

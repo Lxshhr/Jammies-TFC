@@ -1,0 +1,8 @@
+{
+  "forging_temperature": 390.0,
+  "heat_capacity": 0.857,
+  "ingredient": {
+    "item": "jammies:aluminium_lid"
+  },
+  "welding_temperature": 520.0
+}

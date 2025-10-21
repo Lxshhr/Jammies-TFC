@@ -4,12 +4,9 @@ import net.lxshh.jammies.common.util.JammiesDataComponent;
 import net.lxshh.jammies.common.util.data.LidDataComponent;
 import net.lxshh.jammies.common.util.data.LidProperties;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
-
-import java.util.List;
 
 public final class TooltipEvent {
 
@@ -23,6 +20,8 @@ public final class TooltipEvent {
         if (stack.has(JammiesDataComponent.JAR_LID_COMPONENT)) {
             LidDataComponent lidData = stack.get(JammiesDataComponent.JAR_LID_COMPONENT);
             if (lidData != null && !lidData.lidStack().isEmpty()) {
+
+                //Todo: Change -> 1. Check TranslationKey from Json, 2. Check if ItemTranslation is Valid, 3. Have fallback of "jammies.generic.lid"
                 ItemStack lidStack = lidData.lidStack();
 
                 String translationKey = LidProperties.getTranslationKey(lidStack);
@@ -34,6 +33,8 @@ public final class TooltipEvent {
                 event.getToolTip()
                         .add(1, Component.translatable("message.jammies.start.lid")
                                 .append(Component.translatable(translationKey)));
+
+                // Todo -> Add return chance Tooltip
             }
         }
     }

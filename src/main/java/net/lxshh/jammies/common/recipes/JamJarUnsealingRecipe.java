@@ -2,10 +2,8 @@ package net.lxshh.jammies.common.recipes;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.dries007.tfc.common.items.TFCItems;
 import net.lxshh.jammies.common.util.JammiesDataComponent;
 import net.lxshh.jammies.common.util.data.LidDataComponent;
-import net.lxshh.jammies.common.items.JammiesItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;

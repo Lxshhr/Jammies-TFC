@@ -20,6 +20,8 @@ public record LidDataComponent(ItemStack lidStack, float returnChance) {
             LidDataComponent::new
     );
 
+    //Todo add constructor to limit itemStack to 1
+
     public static LidDataComponent of(ItemStack lidStack) {
         float returnChance = 0.0f;
         if (lidStack.isEmpty()) {
