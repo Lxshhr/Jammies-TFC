@@ -1,7 +1,6 @@
 package net.lxshh.jammies.common.util;
 
 import net.lxshh.jammies.Jammies;
-import net.lxshh.jammies.common.util.data.LidProperties;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;

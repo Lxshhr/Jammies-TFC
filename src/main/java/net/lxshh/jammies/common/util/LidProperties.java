@@ -1,4 +1,4 @@
-package net.lxshh.jammies.common.util.data;
+package net.lxshh.jammies.common.util;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

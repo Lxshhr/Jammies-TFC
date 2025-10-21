@@ -2,8 +2,8 @@ package net.lxshh.jammies.common.recipes;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.lxshh.jammies.common.util.JammiesDataComponent;
-import net.lxshh.jammies.common.util.data.LidDataComponent;
+import net.lxshh.jammies.common.component.JammiesDataComponent;
+import net.lxshh.jammies.common.component.LidDataComponent;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -75,7 +75,7 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
     }
 
     public ItemStack getReturnLid(ItemStack itemStack, RandomSource randomSource) {
-        LidDataComponent component = itemStack.get(JammiesDataComponent.JAR_LID_COMPONENT.get());
+        LidDataComponent component = itemStack.get(JammiesDataComponent.JAR_LID_COMPONENT);
         assert component != null;
         Item lidItem = component.lidStack().copy().getItem();
         float returnChance = component.returnChance();
@@ -83,19 +83,6 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
         if (randomSource.nextFloat() < returnChance) {
             return new ItemStack(lidItem, 1);
         }
-
-//        if (lidItem == TFCItems.JAR_LID.get()) {
-//            // 50% Chance
-//            if (randomSource.nextFloat() > 0.5F) {
-//                return new ItemStack(TFCItems.JAR_LID.get(), 1);
-//            }
-//        } else if (lidItem == JammiesItems.ALUMINIUM_LID.get()) {
-//            // 80% Chance
-//            if (randomSource.nextFloat() < 0.8F) {
-//                return new ItemStack(JammiesItems.ALUMINIUM_LID.get(), 1);
-//            }
-//        }
-
         return ItemStack.EMPTY;
     }
 

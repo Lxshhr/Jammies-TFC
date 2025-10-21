@@ -1,11 +1,11 @@
 package net.lxshh.jammies;
 
-import net.lxshh.jammies.common.util.JammiesDataComponent;
+import net.lxshh.jammies.common.component.JammiesDataComponent;
 import net.lxshh.jammies.common.items.JammiesItems;
 import net.lxshh.jammies.common.recipes.JammiesRecipeSerializers;
 import net.lxshh.jammies.common.util.JammiesDataManagerSyncPacket;
 import net.lxshh.jammies.common.util.JammiesDataManagers;
-import net.lxshh.jammies.event.TooltipEvent;
+import net.lxshh.jammies.event.ClientForgeEventHandler;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.common.NeoForge;
@@ -42,7 +42,7 @@ public class Jammies {
         NeoForge.EVENT_BUS.addListener(this::onDataPackSync);
 
         if (dist == Dist.CLIENT) {
-            TooltipEvent.init(NeoForge.EVENT_BUS);
+            ClientForgeEventHandler.init(NeoForge.EVENT_BUS);
         }
     }
 

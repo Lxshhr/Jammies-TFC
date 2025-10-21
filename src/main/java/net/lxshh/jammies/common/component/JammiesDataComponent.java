@@ -1,7 +1,6 @@
-package net.lxshh.jammies.common.util;
+package net.lxshh.jammies.common.component;
 
 import net.lxshh.jammies.Jammies;
-import net.lxshh.jammies.common.util.data.LidDataComponent;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.DeferredHolder;
