@@ -1,0 +1,13 @@
+{
+  "type": "jammies:jar_sealing",
+  "jar": {
+    "item": "tfc:empty_jar"
+  },
+  "lid": {
+    "tag": "jammies:lids"
+  },
+  "result": {
+    "count": 1,
+    "id": "tfc:empty_jar_with_lid"
+  }
+}

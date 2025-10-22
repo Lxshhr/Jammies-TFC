@@ -1,0 +1,11 @@
+{
+  "type": "jammies:jar_unsealing",
+  "always_return_lid": true,
+  "jar": {
+    "item": "tfc:empty_jar_with_lid"
+  },
+  "result": {
+    "count": 1,
+    "id": "tfc:empty_jar"
+  }
+}

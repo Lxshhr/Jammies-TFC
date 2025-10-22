@@ -1,5 +1,6 @@
 package net.lxshh.jammies.common.recipes;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.lxshh.jammies.common.component.JammiesDataComponent;
@@ -7,6 +8,7 @@ import net.lxshh.jammies.common.component.LidDataComponent;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
@@ -17,10 +19,16 @@ import net.minecraft.world.level.Level;
 public class JamJarUnsealingRecipe implements CraftingRecipe {
     private final Ingredient sealedJar;
     private final ItemStack result;
+    private final Boolean alwaysReturnLid;
 
-    public JamJarUnsealingRecipe(Ingredient sealedJar, ItemStack result) {
+    public JamJarUnsealingRecipe(Ingredient sealedJar, ItemStack result, Boolean alwaysReturnLid) {
         this.sealedJar = sealedJar;
         this.result = result;
+        this.alwaysReturnLid = alwaysReturnLid;
+    }
+
+    public JamJarUnsealingRecipe(Ingredient sealedJar, ItemStack result) {
+        this(sealedJar, result, false);
     }
 
     @Override
@@ -80,7 +88,7 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
         Item lidItem = component.lidStack().copy().getItem();
         float returnChance = component.returnChance();
 
-        if (randomSource.nextFloat() < returnChance) {
+        if (this.alwaysReturnLid || randomSource.nextFloat() < returnChance) {
             return new ItemStack(lidItem, 1);
         }
         return ItemStack.EMPTY;
@@ -104,12 +112,14 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
     public static class Serializer implements RecipeSerializer<JamJarUnsealingRecipe> {
         public static final MapCodec<JamJarUnsealingRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
                 Ingredient.CODEC.fieldOf("jar").forGetter(c -> c.sealedJar),
-                ItemStack.CODEC.fieldOf("result").forGetter(c -> c.result)
+                ItemStack.CODEC.fieldOf("result").forGetter(c -> c.result),
+                Codec.BOOL.optionalFieldOf("always_return_lid", false).forGetter(c -> c.alwaysReturnLid)
         ).apply(i, JamJarUnsealingRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, JamJarUnsealingRecipe> STREAM_CODEC = StreamCodec.composite(
                 Ingredient.CONTENTS_STREAM_CODEC, c -> c.sealedJar,
                 ItemStack.STREAM_CODEC, c -> c.result,
+                ByteBufCodecs.BOOL, c -> c.alwaysReturnLid,
                 JamJarUnsealingRecipe::new
         );
 

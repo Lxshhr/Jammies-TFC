@@ -3,6 +3,8 @@ package net.lxshh.jammies.datagen;
 import net.dries007.tfc.common.items.TFCItems;
 import net.dries007.tfc.common.recipes.ingredients.AndIngredient;
 import net.dries007.tfc.common.recipes.ingredients.NotRottenIngredient;
+import net.lxshh.jammies.Jammies;
+import net.lxshh.jammies.common.recipes.JamJarUnsealingRecipe;
 import net.lxshh.jammies.tags.JammiesTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -28,7 +30,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                                 TFCItems.FRUIT_PRESERVES.get(food)
                         )
                         .unlockedBy("has_jar", has(item))
-                        .save(recipeOutput, ResourceLocation.fromNamespaceAndPath("jammies", "crafting/jar/" + food.getSerializedName() + "_sealing"))
+                        .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Jammies.MOD_ID, "crafting/jar/" + food.getSerializedName() + "_sealing"))
         );
 
         TFCItems.FRUIT_PRESERVES.forEach((food, item) ->
@@ -37,10 +39,22 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                                 TFCItems.UNSEALED_FRUIT_PRESERVES.get(food)
                         )
                         .unlockedBy("has_jar", has(item))
-                        .save(recipeOutput, ResourceLocation.fromNamespaceAndPath("jammies", "crafting/jar/" + food.getSerializedName() + "_unsealing"))
+                        .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Jammies.MOD_ID, "crafting/jar/" + food.getSerializedName() + "_unsealing"))
         );
 
-        JamJarSealingRecipeBuilder.sealing(JammiesTags.Items.LIDS, Ingredient.of(TFCItems.EMPTY_JAR), TFCItems.EMPTY_JAR_WITH_LID);
+        JamJarSealingRecipeBuilder.sealing(
+                JammiesTags.Items.LIDS,
+                Ingredient.of(TFCItems.EMPTY_JAR),
+                TFCItems.EMPTY_JAR_WITH_LID)
+                .unlockedBy("has_jar", has(TFCItems.EMPTY_JAR))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Jammies.MOD_ID, "crafting/empty_jar_with_lid"));
+
+        JamJarUnsealingRecipeBuilder.unSealing(
+                Ingredient.of(TFCItems.EMPTY_JAR_WITH_LID),
+                TFCItems.EMPTY_JAR)
+                .alwaysReturnLid()
+                .unlockedBy("has_jar", has(TFCItems.EMPTY_JAR_WITH_LID))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Jammies.MOD_ID, "crafting/empty_jar"));
     }
 
     private Ingredient notRotten(Ingredient food) {

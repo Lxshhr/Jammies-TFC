@@ -6,6 +6,7 @@ import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.client.gui.screens.inventory.BookEditScreen;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -22,15 +23,25 @@ import java.util.Map;
 public class JamJarUnsealingRecipeBuilder implements RecipeBuilder {
     private final Ingredient jar;
     private final ItemStack result;
+    private final boolean alwaysReturnLid;
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 
-    public JamJarUnsealingRecipeBuilder(Ingredient jar, ItemLike result) {
+    private JamJarUnsealingRecipeBuilder(Ingredient jar, ItemLike result, boolean alwaysReturnLid) {
         this.jar = jar;
         this.result = new ItemStack(result);
+        this.alwaysReturnLid = alwaysReturnLid;
     }
 
     public static JamJarUnsealingRecipeBuilder unSealing(Ingredient jar, ItemLike result) {
-        return new JamJarUnsealingRecipeBuilder(jar, result);
+        return new JamJarUnsealingRecipeBuilder(jar, result, false);
+    }
+
+    public static JamJarUnsealingRecipeBuilder unSealing(Ingredient jar, ItemLike result, boolean alwaysReturnLid) {
+        return new JamJarUnsealingRecipeBuilder(jar, result, alwaysReturnLid);
+    }
+
+    public JamJarUnsealingRecipeBuilder alwaysReturnLid() {
+        return new JamJarUnsealingRecipeBuilder(this.jar, this.result.getItem(), true);
     }
 
     @Override
@@ -50,7 +61,7 @@ public class JamJarUnsealingRecipeBuilder implements RecipeBuilder {
     }
 
     protected Recipe<?> recipe() {
-        return new JamJarUnsealingRecipe(jar, result);
+        return new JamJarUnsealingRecipe(jar, result, alwaysReturnLid);
     }
 
     @Override
