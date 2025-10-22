@@ -16,7 +16,7 @@ public class JamPotRecipeMixin {
     @Shadow @Final private ItemStack jarredStack;
 
     @Inject(method = "getResultItem", at = @At("HEAD"), cancellable = true, remap = false)
-    private void getResultItem(HolderLookup.Provider registries, CallbackInfoReturnable<ItemStack> cir) {
+    private void jammies$getResultItem(HolderLookup.Provider registries, CallbackInfoReturnable<ItemStack> cir) {
         cir.setReturnValue(jarredStack);
     }
 }
