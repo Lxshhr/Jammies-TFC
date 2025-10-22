@@ -44,7 +44,7 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
             ItemStack stack = craftingInput.getItem(i);
             if (!stack.isEmpty()) {
                 itemCount ++;
-                if (sealedJar.test(stack) && stack.has(JammiesDataComponent.JAR_LID_COMPONENT)) {
+                if (sealedJar.test(stack)) {
                     hasSealedJar = true;
                 }
             }
@@ -59,10 +59,7 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        NonNullList<Ingredient> ingredients = NonNullList.create();
-
-        ingredients.add(sealedJar);
-        return ingredients;
+        return NonNullList.of(Ingredient.EMPTY, sealedJar);
     }
 
     @Override
@@ -71,11 +68,16 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
 
         for (int i = 0; i < input.size(); i++) {
             ItemStack stack = input.getItem(i);
-            if (!stack.isEmpty() && sealedJar.test(stack) && stack.has(JammiesDataComponent.JAR_LID_COMPONENT)) {
-                RandomSource randomSource = RandomSource.create();
-                ItemStack lidReturn =  getReturnLid(stack, randomSource);
-                if (!lidReturn.isEmpty()) {
-                    remainingItems.set(i, lidReturn);
+            if (!stack.isEmpty() && sealedJar.test(stack)) {
+                if (!stack.has(JammiesDataComponent.JAR_LID_COMPONENT)) {
+                    // Fallback incase this is used in an existing world
+                    return CraftingRecipe.super.getRemainingItems(input);
+                } else if (stack.has(JammiesDataComponent.JAR_LID_COMPONENT)) {
+                    RandomSource randomSource = RandomSource.create();
+                    ItemStack lidReturn = getReturnLid(stack, randomSource);
+                    if (!lidReturn.isEmpty()) {
+                        remainingItems.set(i, lidReturn);
+                    }
                 }
             }
         }
@@ -85,7 +87,7 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
     public ItemStack getReturnLid(ItemStack itemStack, RandomSource randomSource) {
         LidDataComponent component = itemStack.get(JammiesDataComponent.JAR_LID_COMPONENT);
         assert component != null;
-        Item lidItem = component.lidStack().copy().getItem();
+        Item lidItem = component.lidItem();
         float returnChance = component.returnChance();
 
         if (this.alwaysReturnLid || randomSource.nextFloat() < returnChance) {
@@ -95,8 +97,8 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
     }
 
     @Override
-    public boolean canCraftInDimensions(int i, int i1) {
-        return true;
+    public boolean canCraftInDimensions(int width, int height) {
+        return width * height >= 1;
     }
 
     @Override

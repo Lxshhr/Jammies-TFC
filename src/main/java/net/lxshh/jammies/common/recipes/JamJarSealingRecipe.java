@@ -53,7 +53,10 @@ public class JamJarSealingRecipe implements CraftingRecipe {
             }
         }
         ItemStack result = getResultItem(provider).copy();
-        result.set(JammiesDataComponent.JAR_LID_COMPONENT, LidDataComponent.of(lid));
+        LidDataComponent component = LidDataComponent.of(lid);
+        if (component != null) {
+            result.set(JammiesDataComponent.JAR_LID_COMPONENT, LidDataComponent.of(lid));
+        }
         return result;
     }
 

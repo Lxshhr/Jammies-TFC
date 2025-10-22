@@ -4,7 +4,6 @@ import net.dries007.tfc.common.items.TFCItems;
 import net.dries007.tfc.common.recipes.ingredients.AndIngredient;
 import net.dries007.tfc.common.recipes.ingredients.NotRottenIngredient;
 import net.lxshh.jammies.Jammies;
-import net.lxshh.jammies.common.recipes.JamJarUnsealingRecipe;
 import net.lxshh.jammies.tags.JammiesTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;

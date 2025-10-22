@@ -8,10 +8,10 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import java.util.List;
 
-public final class ClientForgeEventHandler {
+public final class ClientEventHandler {
 
     public static void init(IEventBus modEventBus) {
-        modEventBus.addListener(ClientForgeEventHandler::onItemToolTip);
+        modEventBus.addListener(ClientEventHandler::onItemToolTip);
     }
 
     public static void onItemToolTip(ItemTooltipEvent event) {
