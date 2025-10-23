@@ -34,7 +34,7 @@ public record LidProperties(Ingredient lidItem, float returnChance, String trans
     public static final IndirectHashCollection<Item, LidProperties> CACHE = IndirectHashCollection.create(c -> RecipeHelpers.itemKeys(c.lidItem), MANAGER::getValues);
 
     public boolean matches(Item item) {
-        return lidItem.test(item.getDefaultInstance());
+        return lidItem.test(new ItemStack(item));
     }
 
     public static float getReturnChance(ItemStack stack) {

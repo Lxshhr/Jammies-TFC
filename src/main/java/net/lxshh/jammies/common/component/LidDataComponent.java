@@ -19,7 +19,7 @@ import java.util.List;
 public record LidDataComponent(Item lidItem, float returnChance) {
 
     public static final Codec<LidDataComponent> CODEC = RecordCodecBuilder.create(i -> i.group(
-            BuiltInRegistries.ITEM.byNameCodec().fieldOf("lidstack").forGetter(c -> c.lidItem),
+            BuiltInRegistries.ITEM.byNameCodec().fieldOf("lid_item").forGetter(c -> c.lidItem),
             Codec.FLOAT.fieldOf("return_chance").forGetter(c -> c.returnChance)
     ).apply(i, LidDataComponent::new));
 
@@ -60,8 +60,8 @@ public record LidDataComponent(Item lidItem, float returnChance) {
                 }
             }
 
-            tooltips.add(1, Component.translatable("message.jammies.lid.start")
-                    .append(Component.translatable(translationKey)));
+            tooltips.add(1, Component.translatable("message.jammies.lid.start",
+                    Component.translatable(translationKey)));
             tooltips.add(2, Component.translatable("message.jammies.lid.return_chance",
                     String.format("%.0f%%", returnChance * 100)));
         }
