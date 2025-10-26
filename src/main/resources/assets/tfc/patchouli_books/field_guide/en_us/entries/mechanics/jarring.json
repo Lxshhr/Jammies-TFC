@@ -1,0 +1,40 @@
+{
+    "name": "Jarring",
+    "category": "tfc:mechanics",
+    "icon": "tfc:jar/green_apple",
+    "pages": [
+        {
+            "type": "patchouli:text",
+            "text": "$(thing)Jars$() are used to preserve fruit for longer periods of time. Jars start as $(thing)Empty Jars$(), obtained through $(l:mechanics/glassworking_applications#jar)Glassworking$(). Then, a $(thing)Jar Lid$() must be smithed from $(thing)Tin$(). Crafting these together creates an $(thing)Empty Jar With Lid$()."
+        },
+        {
+            "type": "patchouli:text",
+            "text": "In a pot boil 1 pc $(thing)Sugar$(), 100mb $(thing)Water$(), and 1–4 pieces of $(thing)Fruit$(). When the recipe is done, $(item)$(k:key.use)$() with an empty jar or an empty jar with lid to retrieve the jam. Sealing the jam or a jam with lid extends its lifetime."
+        },
+        {
+            "type": "patchouli:crafting",
+            "recipe": "jammies:crafting/jar/green_apple_unsealing",
+            "text": "Unsealing a jar is done by crafting and will give the player an unsealed jar. The unsealed jam will only last for a short time and the lid will be left behind in the crafting container based on the return chance."
+        },
+        {
+            "type": "patchouli:crafting",
+            "recipe": "jammies:crafting/jar/green_apple_sealing",
+            "text": "An unsealed jar can be sealed again to preserve it for longer."
+        },
+        {
+            "type": "patchouli:crafting",
+            "recipe": "tfc:crafting/food/barley_bread_jam_sandwich_1_jar",
+            "text": "Jam is used for making sandwiches. Jam sandwiches can contain Dairy, Cooked Meats, and Jam. An $(thing)Empty Jar$() is left over."
+        },
+        {
+            "type": "patchouli:text",
+            "text": "Jars can be placed on solid surfaces with $(item)$(k:key.use)$(). A block can contain four jars of any kind."
+        },
+        {
+            "type": "patchouli:crafting",
+            "recipe": "tfc:crafting/wood/shelf/oak",
+            "text": "$(thing)Shelves$() can be attached to solid walls. Items, including jars, can be placed on top of them by using the item — including jars — on the shelf, or underneath."
+        }
+    ],
+    "read_by_default": true
+}
