@@ -3,6 +3,8 @@ package net.lxshh.jammies.common.recipes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.dries007.tfc.common.component.food.FoodCapability;
+import net.dries007.tfc.common.component.food.IFood;
 import net.lxshh.jammies.common.component.JammiesDataComponent;
 import net.lxshh.jammies.common.component.LidDataComponent;
 import net.minecraft.core.HolderLookup;
@@ -54,7 +56,23 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
 
     @Override
     public ItemStack assemble(CraftingInput craftingInput, HolderLookup.Provider provider) {
-        return result.copy();
+        ItemStack sealedJarStack = ItemStack.EMPTY;
+        for (int i = 0; i < craftingInput.size(); i++) {
+            ItemStack stack = craftingInput.getItem(i);
+            if (!stack.isEmpty() && sealedJar.test(stack)) {
+                sealedJarStack = stack;
+                break;
+            }
+        }
+
+        ItemStack result = getResultItem(provider).copy();
+
+        IFood iFoodCaps = FoodCapability.get(sealedJarStack);
+        if (iFoodCaps != null) {
+            FoodCapability.setCreationDate(result, iFoodCaps.getCreationDate());
+        }
+
+        return result;
     }
 
     @Override

@@ -2,6 +2,8 @@ package net.lxshh.jammies.common.recipes;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.dries007.tfc.common.component.food.FoodCapability;
+import net.dries007.tfc.common.component.food.IFood;
 import net.lxshh.jammies.common.component.JammiesDataComponent;
 import net.lxshh.jammies.common.component.LidDataComponent;
 import net.minecraft.core.HolderLookup;
@@ -44,18 +46,26 @@ public class JamJarSealingRecipe implements CraftingRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingInput craftingInput, HolderLookup.Provider provider) {
-        ItemStack lid = ItemStack.EMPTY;
-        for (int i = 0; i < craftingInput.size(); i++) {
-            ItemStack stack = craftingInput.getItem(i);
-            if (this.lid.test(stack)) {
-                lid = stack;
+    public ItemStack assemble(CraftingInput input, HolderLookup.Provider provider) {
+        ItemStack lidStack = ItemStack.EMPTY;
+        ItemStack jarStack = ItemStack.EMPTY;
+        for (int i = 0; i < input.size(); i++) {
+            ItemStack stack = input.getItem(i);
+            if (lid.test(stack)) {
+                lidStack = stack;
+            } else if (jar.test(stack)) {
+                jarStack = stack;
             }
         }
         ItemStack result = getResultItem(provider).copy();
-        LidDataComponent component = LidDataComponent.of(lid);
+        LidDataComponent component = LidDataComponent.of(lidStack);
         if (component != null) {
             result.set(JammiesDataComponent.JAR_LID_COMPONENT, component);
+        }
+
+        IFood iFoodCaps = FoodCapability.get(jarStack);
+        if (iFoodCaps != null) {
+           FoodCapability.setCreationDate(result, iFoodCaps.getCreationDate());
         }
         return result;
     }
