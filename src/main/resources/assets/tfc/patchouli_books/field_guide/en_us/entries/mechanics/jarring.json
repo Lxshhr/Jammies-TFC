@@ -9,7 +9,7 @@
         },
         {
             "type": "patchouli:text",
-            "text": "In a pot boil 1 pc $(thing)Sugar$(), 100mb $(thing)Water$(), and 1–4 pieces of $(thing)Fruit$(). When the recipe is done, $(item)$(k:key.use)$() with an empty jar or an empty jar with lid to retrieve the jam. Sealing the jam or a jam with lid extends its lifetime."
+            "text": "In a pot boil 1 pc $(thing)Sugar$(), 100mb $(thing)Water$(), and 2–4 pieces of $(thing)Fruit$(). When the recipe is done, $(item)$(k:key.use)$() with an empty jar or an empty jar with lid to retrieve the jam. Sealing the jam or a jam with lid extends its lifetime."
         },
         {
             "type": "patchouli:crafting",

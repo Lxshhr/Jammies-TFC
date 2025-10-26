@@ -8,10 +8,11 @@ import net.lxshh.jammies.common.component.LidDataComponent;
 import net.lxshh.jammies.common.items.JammiesItems;
 import net.lxshh.jammies.common.util.JammiesDataManagerSyncPacket;
 import net.lxshh.jammies.common.util.JammiesDataManagers;
+import net.lxshh.jammies.common.util.LidProperties;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -41,9 +42,23 @@ public class EventHandler {
         if (event.getTabKey().equals(TFCCreativeTabs.MISC.tab().getKey())) {
             event.accept(JammiesItems.ALUMINIUM_LID.get());
         }
-    }
 
-    public static void modifyDefaultComponents(ModifyDefaultComponentsEvent event) {
-        event.modify(TFCItems.EMPTY_JAR_WITH_LID, i -> i.set(JammiesDataComponent.JAR_LID_COMPONENT.get(), LidDataComponent.of(new ItemStack(TFCItems.JAR_LID.get()))));
+        if (event.getTabKey().equals(TFCCreativeTabs.FOOD.tab().getKey())) {
+            for (LidProperties props : LidProperties.MANAGER.getValues()) {
+                Ingredient ingredient = props.lidItem();
+                ItemStack stack = ingredient.getItems()[0];
+
+                if (stack != null) {
+                    ItemStack jar = new ItemStack(TFCItems.EMPTY_JAR_WITH_LID.get());
+                    LidDataComponent component = LidDataComponent.of(stack);
+
+                    if (component != null) {
+                        jar.set(JammiesDataComponent.JAR_LID_COMPONENT.get(), component);
+
+                        event.accept(jar);
+                    }
+                }
+            }
+        }
     }
 }
