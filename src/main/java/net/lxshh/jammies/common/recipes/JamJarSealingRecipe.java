@@ -55,7 +55,7 @@ public class JamJarSealingRecipe implements CraftingRecipe {
         ItemStack result = getResultItem(provider).copy();
         LidDataComponent component = LidDataComponent.of(lid);
         if (component != null) {
-            result.set(JammiesDataComponent.JAR_LID_COMPONENT, LidDataComponent.of(lid));
+            result.set(JammiesDataComponent.JAR_LID_COMPONENT, component);
         }
         return result;
     }
@@ -63,10 +63,8 @@ public class JamJarSealingRecipe implements CraftingRecipe {
     @Override
     public NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> ingredients = NonNullList.create();
-
         ingredients.add(lid);
         ingredients.add(jar);
-
         return ingredients;
     }
 

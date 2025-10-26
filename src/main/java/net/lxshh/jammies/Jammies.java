@@ -33,6 +33,7 @@ public class Jammies {
         modEventBus.addListener(this::onNewRegistry);
         modEventBus.addListener(EventHandler::registerPayloadHandler);
         modEventBus.addListener(EventHandler::buildContents);
+        modEventBus.addListener(EventHandler::modifyDefaultComponents);
 
         NeoForge.EVENT_BUS.addListener(EventHandler::addReloadListeners);
         NeoForge.EVENT_BUS.addListener(EventHandler::onDataPackSync);

@@ -10,10 +10,11 @@ public class JammiesDataComponent {
     public static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Jammies.MOD_ID);
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<LidDataComponent>> JAR_LID_COMPONENT =
-            DATA_COMPONENTS.registerComponentType(
-                    "lid",
-                    builder -> builder
+            DATA_COMPONENTS.register(
+                    "lid", () ->
+                        DataComponentType.<LidDataComponent>builder()
                             .persistent(LidDataComponent.CODEC)
-                            .networkSynchronized(LidDataComponent.STREAM_CODEC))
-            ;
+                            .networkSynchronized(LidDataComponent.STREAM_CODEC)
+                            .build()
+            );
 }

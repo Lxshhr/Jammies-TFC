@@ -109,6 +109,11 @@ dependencies {
     implementation(libs.jade)
 }
 
+tasks.named('jar', Jar) {
+    exclude 'net/lxshh/jammies/datagen/**'
+    exclude '.cache'
+}
+
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
     var replaceProperties = [
             minecraft_version      : libs.versions.minecraft.get(),
