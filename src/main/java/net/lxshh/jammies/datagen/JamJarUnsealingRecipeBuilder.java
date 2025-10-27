@@ -1,5 +1,6 @@
 package net.lxshh.jammies.datagen;
 
+import net.dries007.tfc.common.recipes.outputs.ItemStackProvider;
 import net.lxshh.jammies.common.recipes.JamJarUnsealingRecipe;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
@@ -10,10 +11,8 @@ import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedHashMap;
@@ -21,26 +20,26 @@ import java.util.Map;
 
 public class JamJarUnsealingRecipeBuilder implements RecipeBuilder {
     private final Ingredient jar;
-    private final ItemStack result;
+    private final ItemStackProvider result;
     private final boolean alwaysReturnLid;
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 
-    private JamJarUnsealingRecipeBuilder(Ingredient jar, ItemLike result, boolean alwaysReturnLid) {
+    private JamJarUnsealingRecipeBuilder(Ingredient jar, ItemStackProvider result, boolean alwaysReturnLid) {
         this.jar = jar;
-        this.result = new ItemStack(result);
+        this.result = result;
         this.alwaysReturnLid = alwaysReturnLid;
     }
 
-    public static JamJarUnsealingRecipeBuilder unSealing(Ingredient jar, ItemLike result) {
+    public static JamJarUnsealingRecipeBuilder unSealing(Ingredient jar, ItemStackProvider result) {
         return new JamJarUnsealingRecipeBuilder(jar, result, false);
     }
 
-    public static JamJarUnsealingRecipeBuilder unSealing(Ingredient jar, ItemLike result, boolean alwaysReturnLid) {
+    public static JamJarUnsealingRecipeBuilder unSealing(Ingredient jar, ItemStackProvider result, boolean alwaysReturnLid) {
         return new JamJarUnsealingRecipeBuilder(jar, result, alwaysReturnLid);
     }
 
     public JamJarUnsealingRecipeBuilder alwaysReturnLid() {
-        return new JamJarUnsealingRecipeBuilder(this.jar, this.result.getItem(), true);
+        return new JamJarUnsealingRecipeBuilder(this.jar, this.result, true);
     }
 
     @Override
@@ -56,7 +55,7 @@ public class JamJarUnsealingRecipeBuilder implements RecipeBuilder {
 
     @Override
     public Item getResult() {
-        return result.getItem();
+        return result.stack().getItem();
     }
 
     protected Recipe<?> recipe() {

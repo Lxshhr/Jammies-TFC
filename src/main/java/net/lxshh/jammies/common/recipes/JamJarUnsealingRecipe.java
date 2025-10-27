@@ -3,8 +3,7 @@ package net.lxshh.jammies.common.recipes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.dries007.tfc.common.component.food.FoodCapability;
-import net.dries007.tfc.common.component.food.IFood;
+import net.dries007.tfc.common.recipes.outputs.ItemStackProvider;
 import net.lxshh.jammies.common.component.JammiesDataComponent;
 import net.lxshh.jammies.common.component.LidDataComponent;
 import net.minecraft.core.HolderLookup;
@@ -20,16 +19,16 @@ import net.minecraft.world.level.Level;
 
 public class JamJarUnsealingRecipe implements CraftingRecipe {
     private final Ingredient sealedJar;
-    private final ItemStack result;
+    private final ItemStackProvider result;
     private final Boolean alwaysReturnLid;
 
-    public JamJarUnsealingRecipe(Ingredient sealedJar, ItemStack result, Boolean alwaysReturnLid) {
+    public JamJarUnsealingRecipe(Ingredient sealedJar, ItemStackProvider result, Boolean alwaysReturnLid) {
         this.sealedJar = sealedJar;
         this.result = result;
         this.alwaysReturnLid = alwaysReturnLid;
     }
 
-    public JamJarUnsealingRecipe(Ingredient sealedJar, ItemStack result) {
+    public JamJarUnsealingRecipe(Ingredient sealedJar, ItemStackProvider result) {
         this(sealedJar, result, false);
     }
 
@@ -54,25 +53,21 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
         return itemCount == 1 && hasSealedJar;
     }
 
+    public boolean matches(ItemStack stack) {
+        return sealedJar.test(stack);
+    }
+
     @Override
     public ItemStack assemble(CraftingInput craftingInput, HolderLookup.Provider provider) {
         ItemStack sealedJarStack = ItemStack.EMPTY;
         for (int i = 0; i < craftingInput.size(); i++) {
             ItemStack stack = craftingInput.getItem(i);
-            if (!stack.isEmpty() && sealedJar.test(stack)) {
+            if (sealedJar.test(stack)) {
                 sealedJarStack = stack;
                 break;
             }
         }
-
-        ItemStack result = getResultItem(provider).copy();
-
-        IFood iFoodCaps = FoodCapability.get(sealedJarStack);
-        if (iFoodCaps != null) {
-            FoodCapability.setCreationDate(result, iFoodCaps.getCreationDate());
-        }
-
-        return result;
+        return result.getSingleStack(sealedJarStack);
     }
 
     @Override
@@ -88,7 +83,7 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
             ItemStack stack = input.getItem(i);
             if (!stack.isEmpty() && sealedJar.test(stack)) {
                 if (!stack.has(JammiesDataComponent.JAR_LID_COMPONENT)) {
-                    // Fallback incase this is used in an existing world
+                    // fallback in case this is used in an existing world
                     return CraftingRecipe.super.getRemainingItems(input);
                 } else if (stack.has(JammiesDataComponent.JAR_LID_COMPONENT)) {
                     RandomSource randomSource = RandomSource.create();
@@ -104,7 +99,9 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
 
     public ItemStack getReturnLid(ItemStack itemStack, RandomSource randomSource) {
         LidDataComponent component = itemStack.get(JammiesDataComponent.JAR_LID_COMPONENT);
-        assert component != null;
+        if (component == null) {
+            return ItemStack.EMPTY;
+        }
         Item lidItem = component.lidItem();
         float returnChance = component.returnChance();
 
@@ -121,24 +118,28 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
 
     @Override
     public ItemStack getResultItem(HolderLookup.Provider provider) {
-        return result.copy();
+        return result.stack();
+    }
+
+    public ItemStack getResult(ItemStack input) {
+        return result.getSingleStack(input);
     }
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return JammiesRecipeSerializers.JAM_UNSEALING_RECIPE.get();
+        return JammiesRecipes.JAM_UNSEALING_RECIPE.get();
     }
 
     public static class Serializer implements RecipeSerializer<JamJarUnsealingRecipe> {
         public static final MapCodec<JamJarUnsealingRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
                 Ingredient.CODEC.fieldOf("jar").forGetter(c -> c.sealedJar),
-                ItemStack.CODEC.fieldOf("result").forGetter(c -> c.result),
+                ItemStackProvider.CODEC.fieldOf("result").forGetter(c -> c.result),
                 Codec.BOOL.optionalFieldOf("always_return_lid", false).forGetter(c -> c.alwaysReturnLid)
         ).apply(i, JamJarUnsealingRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, JamJarUnsealingRecipe> STREAM_CODEC = StreamCodec.composite(
                 Ingredient.CONTENTS_STREAM_CODEC, c -> c.sealedJar,
-                ItemStack.STREAM_CODEC, c -> c.result,
+                ItemStackProvider.STREAM_CODEC, c -> c.result,
                 ByteBufCodecs.BOOL, c -> c.alwaysReturnLid,
                 JamJarUnsealingRecipe::new
         );

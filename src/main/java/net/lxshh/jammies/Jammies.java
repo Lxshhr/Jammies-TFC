@@ -2,7 +2,7 @@ package net.lxshh.jammies;
 
 import net.lxshh.jammies.common.component.JammiesDataComponent;
 import net.lxshh.jammies.common.items.JammiesItems;
-import net.lxshh.jammies.common.recipes.JammiesRecipeSerializers;
+import net.lxshh.jammies.common.recipes.JammiesRecipes;
 import net.lxshh.jammies.common.util.JammiesDataManagers;
 import net.lxshh.jammies.event.ClientEventHandler;
 import net.lxshh.jammies.event.EventHandler;
@@ -26,7 +26,7 @@ public class Jammies {
         JammiesItems.ITEMS.register(modEventBus);
 
         JammiesDataComponent.DATA_COMPONENTS.register(modEventBus);
-        JammiesRecipeSerializers.RECIPE_SERIALIZERS.register(modEventBus);
+        JammiesRecipes.RECIPE_SERIALIZERS.register(modEventBus);
 
         JammiesDataManagers.DATA_MANAGERS.register(modEventBus);
 

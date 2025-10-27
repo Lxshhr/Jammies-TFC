@@ -15,7 +15,14 @@
     "tag": "jammies:lids"
   },
   "result": {
-    "count": 1,
-    "id": "tfc:jar/blueberry"
+    "modifiers": [
+      {
+        "type": "tfc:copy_food"
+      }
+    ],
+    "stack": {
+      "count": 1,
+      "id": "tfc:jar/blueberry"
+    }
   }
 }

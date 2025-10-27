@@ -1,5 +1,6 @@
 package net.lxshh.jammies.datagen;
 
+import net.dries007.tfc.common.recipes.outputs.ItemStackProvider;
 import net.lxshh.jammies.common.recipes.JamJarSealingRecipe;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
@@ -11,10 +12,8 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedHashMap;
@@ -23,20 +22,20 @@ import java.util.Map;
 public class JamJarSealingRecipeBuilder implements RecipeBuilder{
     private final Ingredient lid;
     private final Ingredient jar;
-    private final ItemStack result;
+    private final ItemStackProvider result;
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 
-    public JamJarSealingRecipeBuilder(Ingredient lid, Ingredient jar, ItemLike result) {
+    public JamJarSealingRecipeBuilder(Ingredient lid, Ingredient jar, ItemStackProvider result) {
         this.lid = lid;
         this.jar = jar;
-        this.result = new ItemStack(result);
+        this.result = result;
     }
 
-    public static JamJarSealingRecipeBuilder sealing(TagKey<Item> lidTag, Ingredient jar, ItemLike result) {
+    public static JamJarSealingRecipeBuilder sealing(TagKey<Item> lidTag, Ingredient jar, ItemStackProvider result) {
         return new JamJarSealingRecipeBuilder(Ingredient.of(lidTag), jar, result);
     }
 
-    public static JamJarSealingRecipeBuilder sealing(Ingredient lid, Ingredient jar, ItemLike result) {
+    public static JamJarSealingRecipeBuilder sealing(Ingredient lid, Ingredient jar, ItemStackProvider result) {
         return new JamJarSealingRecipeBuilder(lid, jar, result);
     }
 
@@ -53,7 +52,7 @@ public class JamJarSealingRecipeBuilder implements RecipeBuilder{
 
     @Override
     public Item getResult() {
-        return result.getItem();
+        return result.stack().getItem();
     }
 
     protected Recipe<?> recipe() {

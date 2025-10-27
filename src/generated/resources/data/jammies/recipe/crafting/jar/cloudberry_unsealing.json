@@ -1,18 +1,17 @@
 {
   "type": "jammies:jar_unsealing",
   "jar": {
-    "type": "tfc:and",
-    "children": [
-      {
-        "item": "tfc:jar/cloudberry"
-      },
-      {
-        "type": "tfc:not_rotten"
-      }
-    ]
+    "item": "tfc:jar/cloudberry"
   },
   "result": {
-    "count": 1,
-    "id": "tfc:jar/cloudberry_unsealed"
+    "modifiers": [
+      {
+        "type": "tfc:copy_food"
+      }
+    ],
+    "stack": {
+      "count": 1,
+      "id": "tfc:jar/cloudberry_unsealed"
+    }
   }
 }

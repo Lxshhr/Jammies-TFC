@@ -2,8 +2,7 @@ package net.lxshh.jammies.common.recipes;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.dries007.tfc.common.component.food.FoodCapability;
-import net.dries007.tfc.common.component.food.IFood;
+import net.dries007.tfc.common.recipes.outputs.ItemStackProvider;
 import net.lxshh.jammies.common.component.JammiesDataComponent;
 import net.lxshh.jammies.common.component.LidDataComponent;
 import net.minecraft.core.HolderLookup;
@@ -17,9 +16,9 @@ import net.minecraft.world.level.Level;
 public class JamJarSealingRecipe implements CraftingRecipe {
     private final Ingredient lid;
     private final Ingredient jar;
-    private final ItemStack result;
+    private final ItemStackProvider result;
 
-    public JamJarSealingRecipe(Ingredient lid, Ingredient jar, ItemStack result) {
+    public JamJarSealingRecipe(Ingredient lid, Ingredient jar, ItemStackProvider result) {
         this.lid = lid;
         this.jar = jar;
         this.result = result;
@@ -57,15 +56,10 @@ public class JamJarSealingRecipe implements CraftingRecipe {
                 jarStack = stack;
             }
         }
-        ItemStack result = getResultItem(provider).copy();
+        ItemStack result = this.result.getSingleStack(jarStack);
         LidDataComponent component = LidDataComponent.of(lidStack);
         if (component != null) {
             result.set(JammiesDataComponent.JAR_LID_COMPONENT, component);
-        }
-
-        IFood iFoodCaps = FoodCapability.get(jarStack);
-        if (iFoodCaps != null) {
-           FoodCapability.setCreationDate(result, iFoodCaps.getCreationDate());
         }
         return result;
     }
@@ -90,12 +84,12 @@ public class JamJarSealingRecipe implements CraftingRecipe {
 
     @Override
     public ItemStack getResultItem(HolderLookup.Provider provider) {
-        return this.result;
+        return this.result.stack();
     }
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return JammiesRecipeSerializers.JAM_SEALING_RECIPE.get();
+        return JammiesRecipes.JAM_SEALING_RECIPE.get();
     }
 
 
@@ -103,13 +97,13 @@ public class JamJarSealingRecipe implements CraftingRecipe {
         public static final MapCodec<JamJarSealingRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
                 Ingredient.CODEC.fieldOf("lid").forGetter(c -> c.lid),
                 Ingredient.CODEC.fieldOf("jar").forGetter(c -> c.jar),
-                ItemStack.CODEC.fieldOf("result").forGetter(c -> c.result)
+                ItemStackProvider.CODEC.fieldOf("result").forGetter(c -> c.result)
         ).apply(i, JamJarSealingRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, JamJarSealingRecipe> STREAM_CODEC = StreamCodec.composite(
                 Ingredient.CONTENTS_STREAM_CODEC, c -> c.lid,
                 Ingredient.CONTENTS_STREAM_CODEC, c -> c.jar,
-                ItemStack.STREAM_CODEC, c -> c.result,
+                ItemStackProvider.STREAM_CODEC, c -> c.result,
                 JamJarSealingRecipe::new
         );
 
