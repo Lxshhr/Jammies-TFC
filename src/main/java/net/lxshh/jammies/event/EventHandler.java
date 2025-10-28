@@ -54,8 +54,13 @@ public class EventHandler {
 
                     if (component != null) {
                         jar.set(JammiesDataComponent.JAR_LID_COMPONENT.get(), component);
-
                         event.accept(jar);
+
+                        TFCItems.FRUIT_PRESERVES.forEach((food, item) -> {
+                                ItemStack preserve = new ItemStack(item);
+                                preserve.set(JammiesDataComponent.JAR_LID_COMPONENT.get(), component);
+                                event.accept(preserve);
+                                });
                     }
                 }
             }

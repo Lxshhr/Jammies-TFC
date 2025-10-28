@@ -48,7 +48,7 @@ public record LidDataComponent(Item lidItem, float returnChance) {
             ItemStack lidStack = component.toLidStack();
 
             String defaultTranslationKey = LidProperties.getTranslationKey(lidStack);
-            float returnChance = LidProperties.getReturnChance(lidStack);
+            float returnChance = component.returnChance();
 
             String translationKey = defaultTranslationKey;
 

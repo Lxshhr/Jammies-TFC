@@ -98,8 +98,8 @@ dependencies {
     runtimeOnly(libs.patchouli)
 
     // EMI
-    // compileOnly(libs.emi) { artifact {classifier = "api"} }
-    // runtimeOnly(libs.emi)
+    compileOnly(libs.emi) { artifact {classifier = "api"} }
+    runtimeOnly(libs.emi)
 
     // JEI
     compileOnly(libs.bundles.jei)

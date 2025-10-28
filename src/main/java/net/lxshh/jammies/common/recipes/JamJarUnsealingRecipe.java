@@ -125,6 +125,14 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
         return result.getSingleStack(input);
     }
 
+    public ItemStackProvider getResult() {
+        return result;
+    }
+
+    public Ingredient getSealedJar() {
+        return sealedJar;
+    }
+
     @Override
     public RecipeSerializer<?> getSerializer() {
         return JammiesRecipes.JAM_UNSEALING_RECIPE.get();
