@@ -14,7 +14,7 @@
         {
             "type": "patchouli:crafting",
             "recipe": "jammies:crafting/jar/green_apple_unsealing",
-            "text": "Unsealing a jar is done by crafting and will give the player an unsealed jar. The unsealed jam will only last for a short time and the lid will be left behind in the crafting container based on the return chance."
+            "text": "Unsealing a jar is done by crafting or $(item)$(k:key.use)$() and will give the player an unsealed jar and a lid based on the return chance. The unsealed jam will only last for a short time."
         },
         {
             "type": "patchouli:crafting",
@@ -28,12 +28,22 @@
         },
         {
             "type": "patchouli:text",
-            "text": "Jars can be placed on solid surfaces with $(item)$(k:key.use)$(). A block can contain four jars of any kind."
+            "text": "Jars can be placed on solid surfaces with $(item)$(k:tfc.key.place_block)$(). A block can contain four jars of any kind."
         },
         {
             "type": "patchouli:crafting",
             "recipe": "tfc:crafting/wood/shelf/oak",
             "text": "$(thing)Shelves$() can be attached to solid walls. Items, including jars, can be placed on top of them by using the item — including jars — on the shelf, or underneath."
+        },
+        {
+            "type": "tfc:instant_barrel_recipe",
+            "anchor": "jar",
+            "recipe": "tfc:barrel/clean_jar",
+            "text": "You can use a barrel to wash jars clean. This works for both fresh and rotten jars."
+        },
+        {
+            "type": "patchouli:text",
+            "text": "This entry was overwritten by the Jammies Mod."
         }
     ],
     "read_by_default": true

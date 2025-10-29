@@ -3,5 +3,6 @@
   "message.jammies.lid.return_chance" : "§eReturn Chance: %s",
   "item.jammies.aluminium_lid" : "Aluminium Lid",
   "jammies.tfc.jar_lid" : "Tin Lid",
-  "jammies.generic.lid" : "Jar Lid"
+  "jammies.generic.lid" : "Jar Lid",
+  "tag.item.jammies.lids" : "Lids"
 }

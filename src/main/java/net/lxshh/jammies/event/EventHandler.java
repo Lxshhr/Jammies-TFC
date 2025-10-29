@@ -1,16 +1,10 @@
 package net.lxshh.jammies.event;
 
 import net.dries007.tfc.common.TFCCreativeTabs;
-import net.dries007.tfc.common.items.TFCItems;
 import net.lxshh.jammies.Jammies;
-import net.lxshh.jammies.common.component.JammiesDataComponent;
-import net.lxshh.jammies.common.component.LidDataComponent;
 import net.lxshh.jammies.common.items.JammiesItems;
 import net.lxshh.jammies.common.util.JammiesDataManagerSyncPacket;
 import net.lxshh.jammies.common.util.JammiesDataManagers;
-import net.lxshh.jammies.common.util.LidProperties;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
@@ -39,31 +33,8 @@ public class EventHandler {
     }
 
     public static void buildContents(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey().equals(TFCCreativeTabs.MISC.tab().getKey())) {
+        if (event.getTab().equals(TFCCreativeTabs.MISC.tab().get())) {
             event.accept(JammiesItems.ALUMINIUM_LID.get());
-        }
-
-        if (event.getTabKey().equals(TFCCreativeTabs.FOOD.tab().getKey())) {
-            for (LidProperties props : LidProperties.MANAGER.getValues()) {
-                Ingredient ingredient = props.lidItem();
-                ItemStack stack = ingredient.getItems()[0];
-
-                if (stack != null) {
-                    ItemStack jar = new ItemStack(TFCItems.EMPTY_JAR_WITH_LID.get());
-                    LidDataComponent component = LidDataComponent.of(stack);
-
-                    if (component != null) {
-                        jar.set(JammiesDataComponent.JAR_LID_COMPONENT.get(), component);
-                        event.accept(jar);
-
-                        TFCItems.FRUIT_PRESERVES.forEach((food, item) -> {
-                                ItemStack preserve = new ItemStack(item);
-                                preserve.set(JammiesDataComponent.JAR_LID_COMPONENT.get(), component);
-                                event.accept(preserve);
-                                });
-                    }
-                }
-            }
         }
     }
 }
