@@ -3,6 +3,7 @@ package net.lxshh.jammies.common.recipes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.dries007.tfc.common.recipes.RecipeHelpers;
 import net.dries007.tfc.common.recipes.outputs.ItemStackProvider;
 import net.lxshh.jammies.common.component.JammiesDataComponent;
 import net.lxshh.jammies.common.component.LidDataComponent;
@@ -12,10 +13,13 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.event.level.NoteBlockEvent;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 public class JamJarUnsealingRecipe implements CraftingRecipe {
     private final Ingredient sealedJar;
@@ -77,24 +81,18 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
 
     @Override
     public NonNullList<ItemStack> getRemainingItems(CraftingInput input) {
-        NonNullList<ItemStack> remainingItems = NonNullList.withSize(input.size(), ItemStack.EMPTY);
-
         for (int i = 0; i < input.size(); i++) {
             ItemStack stack = input.getItem(i);
-            if (!stack.isEmpty() && sealedJar.test(stack)) {
-                if (!stack.has(JammiesDataComponent.JAR_LID_COMPONENT)) {
-                    // fallback in case this is used in an existing world
-                    return CraftingRecipe.super.getRemainingItems(input);
-                } else if (stack.has(JammiesDataComponent.JAR_LID_COMPONENT)) {
-                    RandomSource randomSource = RandomSource.create();
-                    ItemStack lidReturn = getReturnLid(stack, randomSource);
-                    if (!lidReturn.isEmpty()) {
-                        remainingItems.set(i, lidReturn);
-                    }
+            if (!stack.isEmpty() && sealedJar.test(stack) && stack.has(JammiesDataComponent.JAR_LID_COMPONENT)) {
+                Player player = RecipeHelpers.getCraftingPlayer();
+                if (player != null) {
+                    ItemStack lidReturn = getReturnLid(stack, player.getRandom());
+                    if (!lidReturn.isEmpty())
+                        ItemHandlerHelper.giveItemToPlayer(player, lidReturn);
                 }
             }
         }
-        return remainingItems;
+        return CraftingRecipe.super.getRemainingItems(input);
     }
 
     public ItemStack getReturnLid(ItemStack itemStack, RandomSource randomSource) {
