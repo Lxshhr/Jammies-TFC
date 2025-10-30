@@ -107,6 +107,13 @@ dependencies {
 
     // Jade
     implementation(libs.jade)
+
+    // TFC IE addon
+    // implementation(libs.tfc.ie.addon)
+    // implementation(libs.ie)
+
+    // Kuba's TFC additions
+    // implementation(libs.kubastfca)
 }
 
 tasks.named('jar', Jar) {
