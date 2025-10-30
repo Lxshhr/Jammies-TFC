@@ -1,6 +1,8 @@
 package net.lxshh.jammies.event;
 
+import dev.emi.emi.api.stack.EmiStack;
 import net.lxshh.jammies.common.component.LidDataComponent;
+import net.lxshh.jammies.common.util.LidProperties;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
@@ -20,6 +22,16 @@ public final class ClientEventHandler {
 
         if (!stack.isEmpty()) {
             LidDataComponent.addTooltipInfo(stack, tooltip);
+        }
+
+        for (LidProperties props : LidProperties.MANAGER.getValues()) {
+            ItemStack[] items = props.lidItem().getItems();
+            for (ItemStack lidStack : items) {
+                if (!lidStack.isEmpty() && stack.is(lidStack.getItem())) {
+                    float returnChance = LidProperties.getReturnChance(stack);
+                    tooltip.add(1, Component.translatable("tooltip.jammies.lid.return_chance", String.format("%.0f%%", returnChance * 100)));
+                }
+            }
         }
     }
 }

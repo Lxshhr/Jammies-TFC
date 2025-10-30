@@ -60,9 +60,9 @@ public record LidDataComponent(Item lidItem, float returnChance) {
                 }
             }
 
-            tooltips.add(1, Component.translatable("message.jammies.lid.start",
+            tooltips.add(1, Component.translatable("tooltip.jammies.lid.start",
                     Component.translatable(translationKey)));
-            tooltips.add(2, Component.translatable("message.jammies.lid.return_chance",
+            tooltips.add(2, Component.translatable("tooltip.jammies.lid.return_chance",
                     String.format("%.0f%%", returnChance * 100)));
         }
     }

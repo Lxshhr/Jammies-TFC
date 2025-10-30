@@ -1,6 +1,6 @@
 {
-  "message.jammies.lid.start" : "§eLid: %s",
-  "message.jammies.lid.return_chance" : "§eReturn Chance: %s",
+  "tooltip.jammies.lid.start" : "§eLid: %s",
+  "tooltip.jammies.lid.return_chance" : "§eReturn Chance: %s",
   "item.jammies.aluminium_lid" : "Aluminium Lid",
   "jammies.tfc.jar_lid" : "Tin Lid",
   "jammies.generic.lid" : "Jar Lid",
