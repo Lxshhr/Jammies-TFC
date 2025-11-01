@@ -18,7 +18,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.event.level.NoteBlockEvent;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 public class JamJarUnsealingRecipe implements CraftingRecipe {

@@ -17,4 +17,4 @@
 ## Download
 
 - [**CurseForge**](https://www.curseforge.com/minecraft/mc-mods/jammies-tfc)
-- [**Modrinth**]()
+- [**Modrinth**](https://modrinth.com/mod/jammies-tfc)

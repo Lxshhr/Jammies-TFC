@@ -1,6 +1,5 @@
 package net.lxshh.jammies.event;
 
-import dev.emi.emi.api.stack.EmiStack;
 import net.lxshh.jammies.common.component.LidDataComponent;
 import net.lxshh.jammies.common.util.LidProperties;
 import net.minecraft.network.chat.Component;
