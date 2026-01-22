@@ -99,7 +99,7 @@ dependencies {
 
     // EMI
     compileOnly(libs.emi) { artifact {classifier = "api"} }
-    runtimeOnly(libs.emi)
+    // runtimeOnly(libs.emi)
 
     // JEI
     compileOnly(libs.bundles.jei)
@@ -107,6 +107,9 @@ dependencies {
 
     // Jade
     implementation(libs.jade)
+
+    // Firmalife
+    implementation(libs.firmalife)
 
     // TFC IE addon
     // implementation(libs.tfc.ie.addon)

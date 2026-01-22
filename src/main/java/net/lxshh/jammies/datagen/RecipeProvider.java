@@ -1,5 +1,7 @@
 package net.lxshh.jammies.datagen;
 
+import com.eerussianguy.firmalife.FirmaLife;
+import com.eerussianguy.firmalife.common.items.FLItems;
 import net.dries007.tfc.common.items.TFCItems;
 import net.dries007.tfc.common.recipes.ingredients.AndIngredient;
 import net.dries007.tfc.common.recipes.ingredients.NotRottenIngredient;
@@ -15,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 
+import java.awt.datatransfer.FlavorListener;
 import java.util.concurrent.CompletableFuture;
 
 public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider implements IConditionBuilder {
@@ -27,21 +30,21 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
     protected void buildRecipes(RecipeOutput recipeOutput) {
         TFCItems.UNSEALED_FRUIT_PRESERVES.forEach((food, item) ->
                 JamJarSealingRecipeBuilder.sealing(
-                                JammiesTags.Items.LIDS,
-                                notRotten(Ingredient.of(item)),
-                                ItemStackProvider.of(new ItemStack(TFCItems.FRUIT_PRESERVES.get(food)), CopyFoodModifier.INSTANCE)
-                        )
-                        .unlockedBy("has_jar", has(item))
-                        .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Jammies.MOD_ID, "crafting/jar/" + food.getSerializedName() + "_sealing"))
+                        JammiesTags.Items.LIDS,
+                        notRotten(Ingredient.of(item)),
+                        ItemStackProvider.of(new ItemStack(TFCItems.FRUIT_PRESERVES.get(food)), CopyFoodModifier.INSTANCE)
+                )
+                .unlockedBy("has_jar", has(item))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Jammies.MOD_ID, "crafting/jar/" + food.getSerializedName() + "_sealing"))
         );
 
         TFCItems.FRUIT_PRESERVES.forEach((food, item) ->
                 JamJarUnsealingRecipeBuilder.unSealing(
-                                Ingredient.of(item),
-                                ItemStackProvider.of(new ItemStack(TFCItems.UNSEALED_FRUIT_PRESERVES.get(food)), CopyFoodModifier.INSTANCE)
-                        )
-                        .unlockedBy("has_jar", has(item))
-                        .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Jammies.MOD_ID, "crafting/jar/" + food.getSerializedName() + "_unsealing"))
+                        Ingredient.of(item),
+                        ItemStackProvider.of(new ItemStack(TFCItems.UNSEALED_FRUIT_PRESERVES.get(food)), CopyFoodModifier.INSTANCE)
+                )
+                .unlockedBy("has_jar", has(item))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Jammies.MOD_ID, "crafting/jar/" + food.getSerializedName() + "_unsealing"))
         );
 
         JamJarSealingRecipeBuilder.sealing(
@@ -57,6 +60,26 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                 .alwaysReturnLid()
                 .unlockedBy("has_jar", has(TFCItems.EMPTY_JAR_WITH_LID))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Jammies.MOD_ID, "crafting/empty_jar"));
+
+        FLItems.UNSEALED_FRUIT_PRESERVES.forEach((food, item) ->
+                JamJarSealingRecipeBuilder.sealing(
+                                JammiesTags.Items.LIDS,
+                                notRotten(Ingredient.of(item)),
+                                ItemStackProvider.of(new ItemStack(FLItems.FRUIT_PRESERVES.get(food)), CopyFoodModifier.INSTANCE)
+                        )
+                        .unlockedBy("has_jar", has(item))
+                        .save(recipeOutput.withConditions(modLoaded(FirmaLife.MOD_ID)), ResourceLocation.fromNamespaceAndPath(Jammies.MOD_ID, "crafting/jar/fl/" + food.getSerializedName() + "_sealing"))
+
+        );
+
+        FLItems.FRUIT_PRESERVES.forEach((food, item) -> {
+                JamJarUnsealingRecipeBuilder.unSealing(
+                        Ingredient.of(item),
+                        ItemStackProvider.of(new ItemStack(FLItems.UNSEALED_FRUIT_PRESERVES.get(food)), CopyFoodModifier.INSTANCE)
+                )
+                .unlockedBy("has_jar", has(item))
+                .save(recipeOutput.withConditions(modLoaded(FirmaLife.MOD_ID)), ResourceLocation.fromNamespaceAndPath(Jammies.MOD_ID, "crafting/jar/fl/" + food.getSerializedName() + "_unsealing"));
+        });
     }
 
     private Ingredient notRotten(Ingredient food) {

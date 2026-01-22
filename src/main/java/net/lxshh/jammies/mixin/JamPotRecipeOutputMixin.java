@@ -1,5 +1,6 @@
 package net.lxshh.jammies.mixin;
 
+import net.dries007.tfc.common.blockentities.IPotInventory;
 import net.dries007.tfc.common.blockentities.PotBlockEntity;
 import net.dries007.tfc.common.items.TFCItems;
 import net.dries007.tfc.common.recipes.JamPotRecipe;
@@ -25,7 +26,7 @@ public abstract class JamPotRecipeOutputMixin {
     @Shadow @Final private ItemStack unsealedStack;
 
     @Inject(method = "onInteract", at = @At("HEAD"), cancellable = true, remap = false)
-    private void jammies$onInteract(PotBlockEntity entity, Player player, ItemStack clickedWith, CallbackInfoReturnable<ItemInteractionResult> cir)
+    private void jammies$onInteract(IPotInventory entity, Player player, ItemStack clickedWith, CallbackInfoReturnable<ItemInteractionResult> cir)
     {
         // rework how sealed jars interact with the recipe
         if (Helpers.isItem(clickedWith, TFCItems.EMPTY_JAR_WITH_LID)) {

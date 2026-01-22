@@ -4,9 +4,12 @@ import net.lxshh.jammies.common.component.JammiesDataComponent;
 import net.lxshh.jammies.common.items.JammiesItems;
 import net.lxshh.jammies.common.recipes.JammiesRecipes;
 import net.lxshh.jammies.common.util.JammiesDataManagers;
+import net.lxshh.jammies.config.ClientConfig;
+import net.lxshh.jammies.config.CommonConfig;
 import net.lxshh.jammies.event.ClientEventHandler;
 import net.lxshh.jammies.event.EventHandler;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import org.slf4j.Logger;
@@ -40,6 +43,9 @@ public class Jammies {
         if (dist == Dist.CLIENT) {
             ClientEventHandler.init(NeoForge.EVENT_BUS);
         }
+
+        modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.CLIENT_CONFIG);
+        modContainer.registerConfig(ModConfig.Type.COMMON, CommonConfig.COMMON_CONFIG);
     }
 
     private void onNewRegistry(NewRegistryEvent event) {

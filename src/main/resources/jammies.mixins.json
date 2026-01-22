@@ -3,7 +3,9 @@
   "minVersion": "0.8",
   "package": "net.lxshh.jammies.mixin",
   "mixins": [
-    "JamPotRecipeMixin", "JamPotRecipeOutputMixin"
+    "FirmalifeVatBlockMixin",
+    "JamPotRecipeMixin",
+    "JamPotRecipeOutputMixin"
   ],
   "injectors": {
     "defaultRequire": 1

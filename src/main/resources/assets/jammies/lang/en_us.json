@@ -1,8 +1,13 @@
 {
-  "tooltip.jammies.lid.start" : "§eLid: %s",
+  "tooltip.jammies.lid.normal" : "§eLid: %s",
   "tooltip.jammies.lid.return_chance" : "§eReturn Chance: %s",
+  "tooltip.jammies.lid.same_line": "§eLid: %s, §eReturn Chance: %s",
+  "tooltip.jammies.lid.short": "%s - %s",
   "item.jammies.aluminium_lid" : "Aluminium Lid",
   "jammies.tfc.jar_lid" : "Tin Lid",
   "jammies.generic.lid" : "Jar Lid",
-  "tag.item.jammies.lids" : "Lids"
+  "tag.item.jammies.lids" : "Lids",
+  "tooltip.jammies.deprecated" : "§4Deprecated - Will be removed in the next update",
+  "jammies.tooltip.hold_shift_for_lid_info": "Hold (Shift) for Lid Info",
+  "jammies.tooltip.hold_shift_for_more_info": "Hold (Shift) for More Info"
 }

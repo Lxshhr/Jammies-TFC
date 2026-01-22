@@ -2,6 +2,7 @@ package net.lxshh.jammies.common.recipes;
 
 import net.lxshh.jammies.common.component.JammiesDataComponent;
 import net.lxshh.jammies.common.component.LidDataComponent;
+import net.lxshh.jammies.config.CommonConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -20,6 +21,10 @@ public class RightClickUnsealingRecipe {
 
     @SubscribeEvent
     public static void rightClickUnsealingRecipe(PlayerInteractEvent.RightClickItem event) {
+        if (!CommonConfig.allowRightClickOpen.get()) {
+            return;
+        }
+
         Level level = event.getLevel();
         InteractionHand hand = event.getHand();
         ItemStack heldItem = event.getItemStack();
@@ -27,14 +32,18 @@ public class RightClickUnsealingRecipe {
         BlockState state = event.getLevel().getBlockState(pos);
         Player player = event.getEntity();
 
-        if (level.isClientSide)
+        if (level.isClientSide) {
             return;
-        if (hand != InteractionHand.MAIN_HAND)
+        }
+        if (hand != InteractionHand.MAIN_HAND) {
             return;
-        if (heldItem.isEmpty())
+        }
+        if (heldItem.isEmpty()) {
             return;
-        if (!state.isAir())
+        }
+        if (!state.isAir()) {
             return;
+        }
 
         RecipeManager recipes = level.getRecipeManager();
 
