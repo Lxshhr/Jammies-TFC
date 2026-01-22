@@ -19,6 +19,9 @@ ie = "6733669"
 kubastfca = "7142373"
 firmalife = "7498010"
 
+tfc_version = "4.0.18-beta"
+firmalife_version = "3.0.3"
+
 [libraries]
 jei-common-api = { module = "mezz.jei:jei-1.21.1-common-api", version.ref = "jei" }
 jei-neoforge-api = { module = "mezz.jei:jei-1.21.1-neoforge-api", version.ref = "jei" }

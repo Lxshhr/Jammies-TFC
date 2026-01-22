@@ -28,7 +28,14 @@ issueTrackerURL="https://github.com/Lxshhr/Jammies-TFC/issues"
 [[dependencies.${mod_id}]]
     modId = "tfc"
     type = "required"
-    versionRange = "4.0.0-beta"
+    versionRange = "[${tfc_version_range},)"
+    ordering = "AFTER"
+    side = "BOTH"
+
+[[dependencies.${mod_id}]]
+    modId = "firmalife"
+    type = "optional"
+    versionRange = "[${firmalife_version_range},)"
     ordering = "AFTER"
     side = "BOTH"
 
