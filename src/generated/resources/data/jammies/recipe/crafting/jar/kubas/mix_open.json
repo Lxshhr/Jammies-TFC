@@ -1,0 +1,23 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "kubastfca"
+    }
+  ],
+  "type": "jammies:jar_unsealing",
+  "jar": {
+    "item": "kubastfca:jar/mix"
+  },
+  "result": {
+    "modifiers": [
+      {
+        "type": "tfc:copy_food"
+      }
+    ],
+    "stack": {
+      "count": 1,
+      "id": "kubastfca:jar/mix_unsealed"
+    }
+  }
+}

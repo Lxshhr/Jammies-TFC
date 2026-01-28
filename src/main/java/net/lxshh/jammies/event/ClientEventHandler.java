@@ -1,8 +1,6 @@
 package net.lxshh.jammies.event;
 
-import net.lxshh.jammies.Jammies;
 import net.lxshh.jammies.common.component.LidDataComponent;
-import net.lxshh.jammies.common.items.JammiesItems;
 import net.lxshh.jammies.common.util.LidProperties;
 import net.lxshh.jammies.config.ClientConfig;
 import net.minecraft.ChatFormatting;
@@ -13,7 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
-import javax.naming.directory.ModificationItem;
 import java.util.List;
 
 public final class ClientEventHandler {
@@ -30,11 +27,6 @@ public final class ClientEventHandler {
             return;
         }
 
-        // Mark Aluminium Lid as Deprecated
-        if (stack.getItem() == JammiesItems.ALUMINIUM_LID.asItem()) {
-            toolTip.add(Component.translatable("tooltip.jammies.deprecated"));
-        }
-
         if (!ClientConfig.enableTooltips.get()) {
             return;
         }
@@ -47,7 +39,6 @@ public final class ClientEventHandler {
             toolTip.add(1, Component.translatable("jammies.tooltip.hold_shift_for_lid_info").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
             return;
         }
-        
 
         LidDataComponent.addTooltipInfo(stack, toolTip);
         addLidTooltip(stack, toolTip);

@@ -30,7 +30,7 @@ public record LidProperties(Ingredient lidItem, float returnChance, String trans
             LidProperties::new
     );
 
-    public static final DataManager<LidProperties> MANAGER =  new DataManager<>(ResourceLocation.fromNamespaceAndPath(Jammies.MOD_ID, "lid"), CODEC, STREAM_CODEC);
+    public static final DataManager<LidProperties> MANAGER =  new DataManager<>(Jammies.loc("lid"), CODEC, STREAM_CODEC);
     public static final IndirectHashCollection<Item, LidProperties> CACHE = IndirectHashCollection.create(c -> RecipeHelpers.itemKeys(c.lidItem), MANAGER::getValues);
 
     public boolean matches(Item item) {

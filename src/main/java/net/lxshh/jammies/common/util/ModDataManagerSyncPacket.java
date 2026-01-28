@@ -10,20 +10,20 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.HashMap;
 import java.util.Map;
 
-public record JammiesDataManagerSyncPacket(Map<ResourceLocation, LidProperties> values) implements CustomPacketPayload {
+public record ModDataManagerSyncPacket(Map<ResourceLocation, LidProperties> values) implements CustomPacketPayload {
 
-    public static final CustomPacketPayload.Type<JammiesDataManagerSyncPacket> TYPE =
-            new Type<>(ResourceLocation.fromNamespaceAndPath(Jammies.MOD_ID, "data_manager_sync"));
+    public static final CustomPacketPayload.Type<ModDataManagerSyncPacket> TYPE =
+            new Type<>(Jammies.loc("data_manager_sync"));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, JammiesDataManagerSyncPacket> CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, ModDataManagerSyncPacket> CODEC =
             ByteBufCodecs.<RegistryFriendlyByteBuf, ResourceLocation, LidProperties, Map<ResourceLocation, LidProperties>>map(
                             HashMap::new,
                             ResourceLocation.STREAM_CODEC,
                             LidProperties.STREAM_CODEC
                     )
-                    .map(JammiesDataManagerSyncPacket::new, JammiesDataManagerSyncPacket::values);
+                    .map(ModDataManagerSyncPacket::new, ModDataManagerSyncPacket::values);
 
-    public JammiesDataManagerSyncPacket() {
+    public ModDataManagerSyncPacket() {
         this(LidProperties.MANAGER.getElements());
     }
 

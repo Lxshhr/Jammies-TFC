@@ -5,10 +5,6 @@
       "required": false
     },
     {
-      "id": "jammies:aluminium_lid",
-      "required": false
-    },
-    {
       "id": "firmalife:stainless_steel_jar_lid",
       "required": false
     }

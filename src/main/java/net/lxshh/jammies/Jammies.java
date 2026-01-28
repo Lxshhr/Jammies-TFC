@@ -1,13 +1,13 @@
 package net.lxshh.jammies;
 
-import net.lxshh.jammies.common.component.JammiesDataComponent;
-import net.lxshh.jammies.common.items.JammiesItems;
-import net.lxshh.jammies.common.recipes.JammiesRecipes;
-import net.lxshh.jammies.common.util.JammiesDataManagers;
+import net.lxshh.jammies.common.component.ModComponents;
+import net.lxshh.jammies.common.recipes.ModRecipes;
+import net.lxshh.jammies.common.util.ModDataManagers;
 import net.lxshh.jammies.config.ClientConfig;
 import net.lxshh.jammies.config.CommonConfig;
 import net.lxshh.jammies.event.ClientEventHandler;
 import net.lxshh.jammies.event.EventHandler;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.NeoForge;
@@ -26,16 +26,13 @@ public class Jammies {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public Jammies(IEventBus modEventBus, ModContainer modContainer, Dist dist) {
-        JammiesItems.ITEMS.register(modEventBus);
+        ModComponents.DATA_COMPONENTS.register(modEventBus);
+        ModRecipes.RECIPE_SERIALIZERS.register(modEventBus);
 
-        JammiesDataComponent.DATA_COMPONENTS.register(modEventBus);
-        JammiesRecipes.RECIPE_SERIALIZERS.register(modEventBus);
-
-        JammiesDataManagers.DATA_MANAGERS.register(modEventBus);
+        ModDataManagers.DATA_MANAGERS.register(modEventBus);
 
         modEventBus.addListener(this::onNewRegistry);
         modEventBus.addListener(EventHandler::registerPayloadHandler);
-        modEventBus.addListener(EventHandler::buildContents);
 
         NeoForge.EVENT_BUS.addListener(EventHandler::addReloadListeners);
         NeoForge.EVENT_BUS.addListener(EventHandler::onDataPackSync);
@@ -49,7 +46,10 @@ public class Jammies {
     }
 
     private void onNewRegistry(NewRegistryEvent event) {
-        event.register(JammiesDataManagers.REGISTRY);
+        event.register(ModDataManagers.REGISTRY);
     }
 
+    public static ResourceLocation loc(String name) {
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
+    }
 }

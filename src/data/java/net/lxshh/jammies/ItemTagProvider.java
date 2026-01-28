@@ -1,9 +1,8 @@
-package net.lxshh.jammies.datagen;
+package net.lxshh.jammies;
 
 import com.eerussianguy.firmalife.common.items.FLItems;
 import net.dries007.tfc.common.items.TFCItems;
-import net.lxshh.jammies.common.items.JammiesItems;
-import net.lxshh.jammies.tags.JammiesTags;
+import net.lxshh.jammies.tags.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -18,9 +17,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(JammiesTags.Items.LIDS)
+        tag(ModTags.Items.LIDS)
                 .addOptional(TFCItems.JAR_LID.getId())
-                .addOptional(JammiesItems.ALUMINIUM_LID.getId())
                 .addOptional(FLItems.STAINLESS_STEEL_JAR_LID.getId());
     }
 }

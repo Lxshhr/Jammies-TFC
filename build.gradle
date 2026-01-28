@@ -2,12 +2,12 @@ plugins {
     id 'idea'
     id 'java-library'
     id 'maven-publish'
-    alias libs.plugins.modDevGradle
+    id 'net.neoforged.moddev' version '2.0.140'
 }
 
 base {
     group = mod_group_id
-    version = "${libs.versions.minecraft.get()}-${mod_version}"
+    version = "${minecraft_version}-${mod_version}"
     archivesName = mod_id
 }
 
@@ -17,12 +17,24 @@ tasks.named('wrapper', Wrapper).configure {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/generated/resources'
+        }
+    }
+    create("data") {
+        compileClasspath += main.compileClasspath + main.output
+        runtimeClasspath += main.runtimeClasspath + main.output
+    }
+}
+
 neoForge {
-    version = libs.versions.neoForge.get()
+    version = project.neo_version
 
     parchment {
-        mappingsVersion = libs.versions.parchment
-        minecraftVersion = libs.versions.minecraft
+        mappingsVersion = project.mappings
+        minecraftVersion = project.minecraft_version
     }
 
     runs {
@@ -44,11 +56,17 @@ neoForge {
 
         data {
             data()
+            sourceSet = sourceSets.data
+
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
         }
 
         configureEach {
+            // "SCAN": For mods scan.
+            // "REGISTRIES": For firing of registry events.
+            // "REGISTRYDUMP": For getting the contents of all registries.
             systemProperty 'forge.logging.markers', 'REGISTRIES'
+
             logLevel = org.slf4j.event.Level.DEBUG
         }
     }
@@ -56,88 +74,94 @@ neoForge {
     mods {
         "${mod_id}" {
             sourceSet(sourceSets.main)
+            sourceSet(sourceSets.data)
         }
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 configurations {
     runtimeClasspath.extendsFrom localRuntime
 }
 
 repositories {
-    maven { // JEI
-        name = "Jared's Maven"
+    maven {
+        // JEI
+        name = "Jared's maven"
         url = "https://maven.blamejared.com/"
     }
-    maven { // JEI mirror
+    maven {
+        // JEI Mirror
         name = "ModMaven"
-        url = "https://modmaven.dev/"
+        url = "https://modmaven.dev"
     }
-    exclusiveContent { //  EMI
-        forRepository { maven { url = "https://maven.terraformersmc.com/releases/" } }
-        filter { includeGroup("dev.emi") }
+    maven {
+        // EMI
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/"
     }
-    exclusiveContent { // Modrinth Maven
-        forRepository { maven { url = "https://api.modrinth.com/maven/" } }
+    exclusiveContent {
+        // Modrinth Maven
+        forRepository { maven {
+            name = "Modrinth"
+            url = "https://api.modrinth.com/maven/" }
+        }
         filter { includeGroup("maven.modrinth") }
     }
-    exclusiveContent { // Curseforge Maven
-        forRepository { maven { url = "https://cursemaven.com" } }
+    exclusiveContent {
+        // Curseforge Maven
+        forRepository { maven {
+            name = "CurseMaven"
+            url = "https://cursemaven.com" }
+        }
         filter { includeGroup("curse.maven") }
     }
 }
 
 dependencies {
     // TFC
-    implementation(libs.tfc)
+    implementation "curse.maven:terrafirmacraft-302973:${tfc_version}"
 
     // Patchouli
-    compileOnly(libs.patchouli) { artifact { classifier = "api" } }
-    runtimeOnly(libs.patchouli)
+    compileOnly "vazkii.patchouli:Patchouli:${patchouli_version}:api"
+    runtimeOnly "vazkii.patchouli:Patchouli:${patchouli_version}"
 
     // EMI
-    compileOnly(libs.emi) { artifact {classifier = "api"} }
-    // runtimeOnly(libs.emi)
+    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
+    // runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
 
     // JEI
-    compileOnly(libs.bundles.jei)
-    runtimeOnly(libs.jei)
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     // Jade
-    implementation(libs.jade)
+    implementation "maven.modrinth:jade:${jade_version}"
 
     // Firmalife
-    implementation(libs.firmalife)
-
-    // TFC IE addon
-    // implementation(libs.tfc.ie.addon)
-    // implementation(libs.ie)
+    implementation "curse.maven:firmalife-453394:${firmalife_version}"
 
     // Kuba's TFC additions
-    // implementation(libs.kubastfca)
+    implementation "curse.maven:kubas-tfc-additions-1213369:${kubastfca_version}"
 }
 
 tasks.named('jar', Jar) {
-    exclude 'net/lxshh/jammies/datagen/**'
     exclude '.cache'
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
     var replaceProperties = [
-            minecraft_version      : libs.versions.minecraft.get(),
-            minecraft_version_range: libs.versions.minecraft.get(),
-            neo_version            : libs.versions.neoForge.get(),
-            loader_version_range   : "[1,)",
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            loader_version_range   : loader_version_range,
             mod_id                 : mod_id,
             mod_name               : mod_name,
             mod_license            : mod_license,
             mod_version            : mod_version,
             mod_authors            : mod_authors,
             mod_description        : mod_description,
-            tfc_version_range      : libs.versions.tfc.version.get(),
-            firmalife_version_range: libs.versions.firmalife.version.get()
+            tfc_version_range      : tfc_version_range,
+            firmalife_version_range: firmalife_version_range
     ]
     inputs.properties replaceProperties
     expand replaceProperties

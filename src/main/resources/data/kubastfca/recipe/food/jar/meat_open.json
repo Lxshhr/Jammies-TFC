@@ -1,23 +1,7 @@
 {
     "neoforge:conditions": [
         {
-            "type": "neoforge:mod_loaded",
-            "modid": "kubastfca"
+            "type": "neoforge:false"
         }
-    ],
-    "type": "jammies:jar_unsealing",
-    "jar": {
-        "item": "kubastfca:jar/meat"
-    },
-    "result": {
-        "modifiers": [
-            {
-                "type": "tfc:copy_food"
-            }
-        ],
-        "stack": {
-            "id": "kubastfca:jar/meat_unsealed",
-            "count": 1
-        }
-    }
+    ]
 }

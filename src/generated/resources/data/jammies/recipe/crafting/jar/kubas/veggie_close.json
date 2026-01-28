@@ -1,0 +1,34 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "kubastfca"
+    }
+  ],
+  "type": "jammies:jar_sealing",
+  "jar": {
+    "type": "tfc:and",
+    "children": [
+      {
+        "item": "kubastfca:jar/veggie_unsealed"
+      },
+      {
+        "type": "tfc:not_rotten"
+      }
+    ]
+  },
+  "lid": {
+    "tag": "jammies:lids"
+  },
+  "result": {
+    "modifiers": [
+      {
+        "type": "tfc:copy_food"
+      }
+    ],
+    "stack": {
+      "count": 1,
+      "id": "kubastfca:jar/veggie"
+    }
+  }
+}

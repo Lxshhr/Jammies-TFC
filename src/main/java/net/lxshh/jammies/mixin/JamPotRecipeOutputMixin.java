@@ -1,11 +1,10 @@
 package net.lxshh.jammies.mixin;
 
 import net.dries007.tfc.common.blockentities.IPotInventory;
-import net.dries007.tfc.common.blockentities.PotBlockEntity;
 import net.dries007.tfc.common.items.TFCItems;
 import net.dries007.tfc.common.recipes.JamPotRecipe;
 import net.dries007.tfc.util.Helpers;
-import net.lxshh.jammies.common.component.JammiesDataComponent;
+import net.lxshh.jammies.common.component.ModComponents;
 import net.lxshh.jammies.common.component.LidDataComponent;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -31,7 +30,7 @@ public abstract class JamPotRecipeOutputMixin {
         // rework how sealed jars interact with the recipe
         if (Helpers.isItem(clickedWith, TFCItems.EMPTY_JAR_WITH_LID)) {
             // get the component before we shrink
-            LidDataComponent component = clickedWith.get(JammiesDataComponent.JAR_LID_COMPONENT);
+            LidDataComponent component = clickedWith.get(ModComponents.JAR_LID_COMPONENT);
 
             clickedWith.shrink(1);
             unsealedStack.shrink(1);
@@ -40,7 +39,7 @@ public abstract class JamPotRecipeOutputMixin {
 
             // transfer the component to the result item
             if (component != null) {
-                result.set(JammiesDataComponent.JAR_LID_COMPONENT, component);
+                result.set(ModComponents.JAR_LID_COMPONENT, component);
             }
             ItemHandlerHelper.giveItemToPlayer(player, result);
         }
