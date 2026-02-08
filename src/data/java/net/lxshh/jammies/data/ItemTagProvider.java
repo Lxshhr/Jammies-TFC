@@ -1,4 +1,4 @@
-package net.lxshh.jammies;
+package net.lxshh.jammies.data;
 
 import com.eerussianguy.firmalife.common.items.FLItems;
 import net.dries007.tfc.common.items.TFCItems;

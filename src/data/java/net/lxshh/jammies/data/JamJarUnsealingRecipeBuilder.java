@@ -1,7 +1,7 @@
-package net.lxshh.jammies;
+package net.lxshh.jammies.data;
 
 import net.dries007.tfc.common.recipes.outputs.ItemStackProvider;
-import net.lxshh.jammies.common.recipes.JamJarSealingRecipe;
+import net.lxshh.jammies.common.recipes.JamJarUnsealingRecipe;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
@@ -10,7 +10,6 @@ import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -19,24 +18,28 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class JamJarSealingRecipeBuilder implements RecipeBuilder{
-    private final Ingredient lid;
+public class JamJarUnsealingRecipeBuilder implements RecipeBuilder {
     private final Ingredient jar;
     private final ItemStackProvider result;
+    private final boolean alwaysReturnLid;
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 
-    public JamJarSealingRecipeBuilder(Ingredient lid, Ingredient jar, ItemStackProvider result) {
-        this.lid = lid;
+    private JamJarUnsealingRecipeBuilder(Ingredient jar, ItemStackProvider result, boolean alwaysReturnLid) {
         this.jar = jar;
         this.result = result;
+        this.alwaysReturnLid = alwaysReturnLid;
     }
 
-    public static JamJarSealingRecipeBuilder sealing(TagKey<Item> lidTag, Ingredient jar, ItemStackProvider result) {
-        return new JamJarSealingRecipeBuilder(Ingredient.of(lidTag), jar, result);
+    public static JamJarUnsealingRecipeBuilder unSealing(Ingredient jar, ItemStackProvider result) {
+        return new JamJarUnsealingRecipeBuilder(jar, result, false);
     }
 
-    public static JamJarSealingRecipeBuilder sealing(Ingredient lid, Ingredient jar, ItemStackProvider result) {
-        return new JamJarSealingRecipeBuilder(lid, jar, result);
+    public static JamJarUnsealingRecipeBuilder unSealing(Ingredient jar, ItemStackProvider result, boolean alwaysReturnLid) {
+        return new JamJarUnsealingRecipeBuilder(jar, result, alwaysReturnLid);
+    }
+
+    public JamJarUnsealingRecipeBuilder alwaysReturnLid() {
+        return new JamJarUnsealingRecipeBuilder(this.jar, this.result, true);
     }
 
     @Override
@@ -56,7 +59,7 @@ public class JamJarSealingRecipeBuilder implements RecipeBuilder{
     }
 
     protected Recipe<?> recipe() {
-        return new JamJarSealingRecipe(lid, jar, result);
+        return new JamJarUnsealingRecipe(jar, result, alwaysReturnLid);
     }
 
     @Override
@@ -64,9 +67,9 @@ public class JamJarSealingRecipeBuilder implements RecipeBuilder{
         ensureValid(recipeId);
 
         Advancement.Builder advancement = output.advancement()
-                        .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId))
-                                .rewards(AdvancementRewards.Builder.recipe(recipeId))
-                                        .requirements(AdvancementRequirements.Strategy.OR);
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId))
+                .rewards(AdvancementRewards.Builder.recipe(recipeId))
+                .requirements(AdvancementRequirements.Strategy.OR);
 
         this.criteria.forEach(advancement::addCriterion);
 

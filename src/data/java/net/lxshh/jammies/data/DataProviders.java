@@ -1,5 +1,6 @@
-package net.lxshh.jammies;
+package net.lxshh.jammies.data;
 
+import net.lxshh.jammies.Jammies;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;

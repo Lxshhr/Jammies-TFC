@@ -1,4 +1,4 @@
-package net.lxshh.jammies;
+package net.lxshh.jammies.data;
 
 import com.eerussianguy.firmalife.FirmaLife;
 import com.eerussianguy.firmalife.common.items.FLItems;
@@ -9,6 +9,7 @@ import net.dries007.tfc.common.recipes.outputs.CopyFoodModifier;
 import net.dries007.tfc.common.recipes.outputs.ItemStackProvider;
 import net.kuba807.kubastfca.common.item.KubastfcaItems;
 import net.kuba807.kubastfca.kubastfca;
+import net.lxshh.jammies.Jammies;
 import net.lxshh.jammies.tags.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
