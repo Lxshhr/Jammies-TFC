@@ -12,7 +12,7 @@
   "result": {
     "modifiers": [
       {
-        "type": "tfc:copy_food"
+        "type": "jammies:copy_date"
       }
     ],
     "stack": {
