@@ -35,15 +35,18 @@ public class FirmalifeVatBlockMixin {
             return;
         }
 
-        // rework how sealed jars interact with the recipe
+        // Rework how sealed jars interact with the recipe
         if (Helpers.isItem(stack, TFCItems.EMPTY_JAR_WITH_LID)) {
-            // get the component before we shrink
+            // Copy component before we shrink from the existing jar
             LidDataComponent component = stack.get(ModComponents.JAR_LID_COMPONENT);
 
+            // Shrink the stack
             stack.shrink(1);
+
+            // Result
             ItemStack output = vat.takeOutput();
 
-            // transfer the component to the result item
+            // Transfer the component to the result item
             if (component != null) {
                 output.set(ModComponents.JAR_LID_COMPONENT, component);
             }
