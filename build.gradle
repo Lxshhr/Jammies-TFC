@@ -120,7 +120,7 @@ repositories {
 
 dependencies {
     // TFC
-    implementation "curse.maven:terrafirmacraft-302973:${tfc_version}"
+    implementation "maven.modrinth:terrafirmacraft:${tfc_version}"
 
     // Patchouli
     compileOnly "vazkii.patchouli:Patchouli:${patchouli_version}:api"
@@ -135,13 +135,13 @@ dependencies {
     runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     // Jade
-    implementation "maven.modrinth:jade:${jade_version}"
+    // implementation "maven.modrinth:jade:${jade_version}"
 
     // Firmalife
-    implementation "curse.maven:firmalife-453394:${firmalife_version}"
+    implementation "maven.modrinth:firmalife:${firmalife_version}"
 
     // Kuba's TFC additions
-    implementation "curse.maven:kubas-tfc-additions-1213369:${kubastfca_version}"
+    compileOnly "curse.maven:kubas-tfc-additions-1213369:${kubastfca_version}"
 }
 
 tasks.named('jar', Jar) {
@@ -160,8 +160,8 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_version            : mod_version,
             mod_authors            : mod_authors,
             mod_description        : mod_description,
-            tfc_version_range      : tfc_version_range,
-            firmalife_version_range: firmalife_version_range
+            tfc_version_range      : tfc_version,
+            firmalife_version_range: firmalife_version
     ]
     inputs.properties replaceProperties
     expand replaceProperties
