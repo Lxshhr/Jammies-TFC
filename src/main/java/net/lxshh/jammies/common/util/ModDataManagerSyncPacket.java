@@ -34,7 +34,7 @@ public record ModDataManagerSyncPacket(Map<ResourceLocation, LidProperties> valu
 
     public void handle(boolean isMemoryConnection) {
         if (isMemoryConnection) {
-            Jammies.LOGGER.info("Ignoring Lid Properties DataManager sync on logical server");
+            Jammies.LOGGER.debug("Ignoring Lid Properties DataManager sync on logical server");
             return;
         }
         LidProperties.MANAGER.bindValues(values);

@@ -11,6 +11,7 @@ import net.lxshh.jammies.event.EventHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import org.slf4j.Logger;
@@ -26,7 +27,7 @@ public class Jammies {
     public static final String MOD_ID = "jammies";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public Jammies(IEventBus modEventBus, ModContainer modContainer, Dist dist) {
+    public Jammies(IEventBus modEventBus, ModContainer modContainer) {
         ModComponents.DATA_COMPONENTS.register(modEventBus);
         ModRecipes.RECIPE_SERIALIZERS.register(modEventBus);
         ModItemStackModifiers.ITEMSTACK_MODIFIER.register(modEventBus);
@@ -39,7 +40,7 @@ public class Jammies {
         NeoForge.EVENT_BUS.addListener(EventHandler::addReloadListeners);
         NeoForge.EVENT_BUS.addListener(EventHandler::onDataPackSync);
 
-        if (dist == Dist.CLIENT) {
+        if (FMLEnvironment.dist == Dist.CLIENT) {
             ClientEventHandler.init(NeoForge.EVENT_BUS);
         }
 
