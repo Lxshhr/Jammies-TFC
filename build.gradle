@@ -141,7 +141,7 @@ dependencies {
     implementation "maven.modrinth:firmalife:${firmalife_version}"
 
     // Kuba's TFC additions
-    compileOnly "curse.maven:kubas-tfc-additions-1213369:${kubastfca_version}"
+    implementation "curse.maven:kubas-tfc-additions-1213369:${kubastfca_version}"
 }
 
 tasks.named('jar', Jar) {
