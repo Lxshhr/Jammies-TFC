@@ -1,0 +1,33 @@
+{
+  "type": "tfc:advanced_shaped_crafting",
+  "key": {
+    "X": {
+      "item": "firmalife:food/raw_honey"
+    },
+    "Y": {
+      "item": "tfc:empty_jar_with_lid"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "XYX",
+    "XXX"
+  ],
+  "input_row": 1,
+  "input_column": 1,
+  "result": {
+    "modifiers": [
+      {
+        "type": "tfc:add_trait",
+        "trait": "tfc:canned"
+      },
+      {
+        "type": "jammies:copy_lid"
+      }
+    ],
+    "stack": {
+      "count": 1,
+      "id": "firmalife:jar/honey"
+    }
+  }
+}

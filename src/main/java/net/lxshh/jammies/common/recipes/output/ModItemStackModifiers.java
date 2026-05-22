@@ -14,6 +14,7 @@ public class ModItemStackModifiers {
     public static final DeferredRegister<ItemStackModifierType<?>> ITEMSTACK_MODIFIER = DeferredRegister.create(ItemStackModifiers.KEY, Jammies.MOD_ID);
 
     public static final Supplier<ItemStackModifierType<CopyExactDateModifier>> COPY_DATE_MODIFIER = register("copy_date", CopyExactDateModifier.INSTANCE);
+    public static final Supplier<ItemStackModifierType<CopyLidDataModifier>> COPY_LID_MODIFIER = register("copy_lid", CopyLidDataModifier.INSTANCE);
 
     private static <T extends ItemStackModifier> Supplier<ItemStackModifierType<T>> register(String name, T singleInstance) {
         return ITEMSTACK_MODIFIER.register(name, () -> new ItemStackModifierType<>(MapCodec.unit(singleInstance), StreamCodec.unit(singleInstance)));
