@@ -1,8 +1,9 @@
 package net.lxshh.jammies.event;
 
 import net.lxshh.jammies.Jammies;
-import net.lxshh.jammies.common.util.ModDataManagerSyncPacket;
-import net.lxshh.jammies.common.util.ModDataManagers;
+import net.lxshh.jammies.network.ModDataManagerSyncPacket;
+import net.lxshh.jammies.common.data.ModDataManagers;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.network.PacketDistributor;

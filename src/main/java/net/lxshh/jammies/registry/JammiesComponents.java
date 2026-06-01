@@ -1,12 +1,13 @@
-package net.lxshh.jammies.common.component;
+package net.lxshh.jammies.registry;
 
 import net.lxshh.jammies.Jammies;
+import net.lxshh.jammies.common.component.LidDataComponent;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public class ModComponents {
+public class JammiesComponents {
     public static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Jammies.MOD_ID);
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<LidDataComponent>> JAR_LID_COMPONENT =

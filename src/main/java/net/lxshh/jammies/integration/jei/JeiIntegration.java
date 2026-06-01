@@ -1,4 +1,4 @@
-package net.lxshh.jammies.compat.jei;
+package net.lxshh.jammies.integration.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;

@@ -1,4 +1,4 @@
-package net.lxshh.jammies.compat.emi;
+package net.lxshh.jammies.integration.emi;
 
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;

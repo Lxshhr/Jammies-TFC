@@ -5,8 +5,9 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.dries007.tfc.common.recipes.RecipeHelpers;
 import net.dries007.tfc.common.recipes.outputs.ItemStackProvider;
-import net.lxshh.jammies.common.component.ModComponents;
+import net.lxshh.jammies.registry.JammiesComponents;
 import net.lxshh.jammies.common.component.LidDataComponent;
+import net.lxshh.jammies.registry.JammiesRecipeSerializers;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -82,7 +83,7 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
     public NonNullList<ItemStack> getRemainingItems(CraftingInput input) {
         for (int i = 0; i < input.size(); i++) {
             ItemStack stack = input.getItem(i);
-            if (!stack.isEmpty() && sealedJar.test(stack) && stack.has(ModComponents.JAR_LID_COMPONENT)) {
+            if (!stack.isEmpty() && sealedJar.test(stack) && stack.has(JammiesComponents.JAR_LID_COMPONENT)) {
                 Player player = RecipeHelpers.getCraftingPlayer();
                 if (player != null) {
                     ItemStack lidReturn = getReturnLid(stack, player.getRandom());
@@ -95,7 +96,7 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
     }
 
     public ItemStack getReturnLid(ItemStack itemStack, RandomSource randomSource) {
-        LidDataComponent component = itemStack.get(ModComponents.JAR_LID_COMPONENT);
+        LidDataComponent component = itemStack.get(JammiesComponents.JAR_LID_COMPONENT);
         if (component == null) {
             return ItemStack.EMPTY;
         }
@@ -132,7 +133,7 @@ public class JamJarUnsealingRecipe implements CraftingRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.JAM_UNSEALING_RECIPE.get();
+        return JammiesRecipeSerializers.JAM_UNSEALING_RECIPE.get();
     }
 
     public static class Serializer implements RecipeSerializer<JamJarUnsealingRecipe> {

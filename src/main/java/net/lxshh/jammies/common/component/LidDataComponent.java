@@ -3,8 +3,9 @@ package net.lxshh.jammies.common.component;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.lxshh.jammies.Jammies;
-import net.lxshh.jammies.common.util.LidProperties;
+import net.lxshh.jammies.common.data.LidProperties;
 import net.lxshh.jammies.config.ClientConfig;
+import net.lxshh.jammies.registry.JammiesComponents;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -44,7 +45,7 @@ public record LidDataComponent(Item lidItem, float returnChance) {
     }
 
     public static void addTooltipInfo(ItemStack stack, List<Component> toolTip) {
-        final @Nullable LidDataComponent component = stack.get(ModComponents.JAR_LID_COMPONENT);
+        final @Nullable LidDataComponent component = stack.get(JammiesComponents.JAR_LID_COMPONENT);
         if (component != null) {
             ItemStack lidStack = component.toLidStack();
 

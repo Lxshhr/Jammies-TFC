@@ -1,7 +1,7 @@
-package net.lxshh.jammies.event;
+package net.lxshh.jammies.client;
 
 import net.lxshh.jammies.common.component.LidDataComponent;
-import net.lxshh.jammies.common.util.LidProperties;
+import net.lxshh.jammies.common.data.LidProperties;
 import net.lxshh.jammies.config.ClientConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;

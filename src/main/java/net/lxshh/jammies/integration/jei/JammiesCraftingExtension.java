@@ -1,4 +1,4 @@
-package net.lxshh.jammies.compat.jei;
+package net.lxshh.jammies.integration.jei;
 
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.ICraftingGridHelper;
@@ -8,7 +8,7 @@ import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategor
 import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import net.dries007.tfc.compat.jei.JEIIntegration;
 import net.lxshh.jammies.common.recipes.JamJarUnsealingRecipe;
-import net.lxshh.jammies.common.util.LidProperties;
+import net.lxshh.jammies.common.data.LidProperties;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;

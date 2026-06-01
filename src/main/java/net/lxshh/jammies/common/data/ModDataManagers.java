@@ -1,4 +1,4 @@
-package net.lxshh.jammies.common.util;
+package net.lxshh.jammies.common.data;
 
 import net.dries007.tfc.util.data.DataManager;
 import net.lxshh.jammies.Jammies;

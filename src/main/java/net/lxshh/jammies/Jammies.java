@@ -1,12 +1,12 @@
 package net.lxshh.jammies;
 
-import net.lxshh.jammies.common.component.ModComponents;
-import net.lxshh.jammies.common.recipes.ModRecipes;
+import net.lxshh.jammies.registry.JammiesComponents;
+import net.lxshh.jammies.registry.JammiesRecipeSerializers;
 import net.lxshh.jammies.common.recipes.output.ModItemStackModifiers;
-import net.lxshh.jammies.common.util.ModDataManagers;
+import net.lxshh.jammies.common.data.ModDataManagers;
 import net.lxshh.jammies.config.ClientConfig;
 import net.lxshh.jammies.config.CommonConfig;
-import net.lxshh.jammies.event.ClientEventHandler;
+import net.lxshh.jammies.client.ClientEventHandler;
 import net.lxshh.jammies.event.EventHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
@@ -28,8 +28,8 @@ public class Jammies {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public Jammies(IEventBus modEventBus, ModContainer modContainer) {
-        ModComponents.DATA_COMPONENTS.register(modEventBus);
-        ModRecipes.RECIPE_SERIALIZERS.register(modEventBus);
+        JammiesComponents.DATA_COMPONENTS.register(modEventBus);
+        JammiesRecipeSerializers.RECIPE_SERIALIZERS.register(modEventBus);
         ModItemStackModifiers.ITEMSTACK_MODIFIER.register(modEventBus);
 
         ModDataManagers.DATA_MANAGERS.register(modEventBus);

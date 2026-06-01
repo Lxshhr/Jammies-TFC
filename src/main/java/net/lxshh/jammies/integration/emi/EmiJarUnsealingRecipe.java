@@ -1,4 +1,4 @@
-package net.lxshh.jammies.compat.emi;
+package net.lxshh.jammies.integration.emi;
 
 import dev.emi.emi.api.recipe.EmiCraftingRecipe;
 import dev.emi.emi.api.render.EmiTexture;
@@ -8,7 +8,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import net.dries007.tfc.common.recipes.outputs.ItemStackProvider;
 import net.dries007.tfc.compat.emi.EmiHelpers;
 import net.lxshh.jammies.common.recipes.JamJarUnsealingRecipe;
-import net.lxshh.jammies.common.util.LidProperties;
+import net.lxshh.jammies.common.data.LidProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;

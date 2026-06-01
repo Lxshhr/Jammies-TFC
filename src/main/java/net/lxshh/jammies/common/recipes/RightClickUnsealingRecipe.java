@@ -1,6 +1,6 @@
 package net.lxshh.jammies.common.recipes;
 
-import net.lxshh.jammies.common.component.ModComponents;
+import net.lxshh.jammies.registry.JammiesComponents;
 import net.lxshh.jammies.common.component.LidDataComponent;
 import net.lxshh.jammies.config.CommonConfig;
 import net.minecraft.core.BlockPos;
@@ -61,7 +61,7 @@ public class RightClickUnsealingRecipe {
 
             ItemStack unsealedJar = recipe.getResult(heldItem);
 
-            LidDataComponent component = heldItem.get(ModComponents.JAR_LID_COMPONENT);
+            LidDataComponent component = heldItem.get(JammiesComponents.JAR_LID_COMPONENT);
             if (component != null) {
                 ItemStack returnLid = recipe.getReturnLid(heldItem, level.random);
                 if (!returnLid.isEmpty()) {

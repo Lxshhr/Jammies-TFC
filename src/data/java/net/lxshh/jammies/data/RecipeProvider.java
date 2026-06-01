@@ -10,7 +10,7 @@ import net.kuba807.kubastfca.common.item.KubastfcaItems;
 import net.kuba807.kubastfca.kubastfca;
 import net.lxshh.jammies.Jammies;
 import net.lxshh.jammies.common.recipes.output.CopyExactDateModifier;
-import net.lxshh.jammies.tags.ModTags;
+import net.lxshh.jammies.registry.JammiesTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -40,7 +40,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
         );
 
         JamJarSealingRecipeBuilder.sealing(
-                        ModTags.Items.LIDS,
+                        JammiesTags.Items.LIDS,
                         Ingredient.of(TFCItems.EMPTY_JAR),
                         ItemStackProvider.of(new ItemStack(TFCItems.EMPTY_JAR_WITH_LID)))
                 .unlockedBy("has_jar", has(TFCItems.EMPTY_JAR))
@@ -86,7 +86,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
 
     private void sealingRecipe(ItemLike ingredient, ItemLike result, String rl, RecipeOutput output) {
         JamJarSealingRecipeBuilder.sealing(
-                ModTags.Items.LIDS,
+                JammiesTags.Items.LIDS,
                 notRotten(Ingredient.of(ingredient)),
                 ItemStackProvider.of(new ItemStack(result), CopyExactDateModifier.INSTANCE)
             )

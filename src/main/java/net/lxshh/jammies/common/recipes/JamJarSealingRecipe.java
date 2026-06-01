@@ -3,8 +3,9 @@ package net.lxshh.jammies.common.recipes;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.dries007.tfc.common.recipes.outputs.ItemStackProvider;
-import net.lxshh.jammies.common.component.ModComponents;
+import net.lxshh.jammies.registry.JammiesComponents;
 import net.lxshh.jammies.common.component.LidDataComponent;
+import net.lxshh.jammies.registry.JammiesRecipeSerializers;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -59,7 +60,7 @@ public class JamJarSealingRecipe implements CraftingRecipe {
         ItemStack result = this.result.getSingleStack(jarStack);
         LidDataComponent component = LidDataComponent.of(lidStack);
         if (component != null) {
-            result.set(ModComponents.JAR_LID_COMPONENT, component);
+            result.set(JammiesComponents.JAR_LID_COMPONENT, component);
         }
         return result;
     }
@@ -89,7 +90,7 @@ public class JamJarSealingRecipe implements CraftingRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.JAM_SEALING_RECIPE.get();
+        return JammiesRecipeSerializers.JAM_SEALING_RECIPE.get();
     }
 
 

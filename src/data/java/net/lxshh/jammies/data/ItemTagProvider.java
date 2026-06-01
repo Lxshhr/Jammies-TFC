@@ -2,7 +2,7 @@ package net.lxshh.jammies.data;
 
 import com.eerussianguy.firmalife.common.items.FLItems;
 import net.dries007.tfc.common.items.TFCItems;
-import net.lxshh.jammies.tags.ModTags;
+import net.lxshh.jammies.registry.JammiesTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -17,7 +17,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(ModTags.Items.LIDS)
+        tag(JammiesTags.Items.LIDS)
                 .addOptional(TFCItems.JAR_LID.getId())
                 .addOptional(FLItems.STAINLESS_STEEL_JAR_LID.getId());
     }

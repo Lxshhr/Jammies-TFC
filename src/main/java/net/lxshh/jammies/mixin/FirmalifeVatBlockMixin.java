@@ -4,7 +4,7 @@ import com.eerussianguy.firmalife.common.blockentities.VatBlockEntity;
 import com.eerussianguy.firmalife.common.blocks.oven.VatBlock;
 import net.dries007.tfc.common.items.TFCItems;
 import net.dries007.tfc.util.Helpers;
-import net.lxshh.jammies.common.component.ModComponents;
+import net.lxshh.jammies.registry.JammiesComponents;
 import net.lxshh.jammies.common.component.LidDataComponent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -38,7 +38,7 @@ public class FirmalifeVatBlockMixin {
         // Rework how sealed jars interact with the recipe
         if (Helpers.isItem(stack, TFCItems.EMPTY_JAR_WITH_LID)) {
             // Copy component before we shrink from the existing jar
-            LidDataComponent component = stack.get(ModComponents.JAR_LID_COMPONENT);
+            LidDataComponent component = stack.get(JammiesComponents.JAR_LID_COMPONENT);
 
             // Shrink the stack
             stack.shrink(1);
@@ -48,7 +48,7 @@ public class FirmalifeVatBlockMixin {
 
             // Transfer the component to the result item
             if (component != null) {
-                output.set(ModComponents.JAR_LID_COMPONENT, component);
+                output.set(JammiesComponents.JAR_LID_COMPONENT, component);
             }
             ItemHandlerHelper.giveItemToPlayer(player, output);
             cir.setReturnValue(ItemInteractionResult.sidedSuccess(level.isClientSide));
