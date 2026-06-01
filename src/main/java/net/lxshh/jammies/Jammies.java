@@ -2,7 +2,7 @@ package net.lxshh.jammies;
 
 import net.lxshh.jammies.registry.JammiesComponents;
 import net.lxshh.jammies.registry.JammiesRecipeSerializers;
-import net.lxshh.jammies.common.recipes.output.ModItemStackModifiers;
+import net.lxshh.jammies.registry.JammiesItemStackModifiers;
 import net.lxshh.jammies.common.data.ModDataManagers;
 import net.lxshh.jammies.config.ClientConfig;
 import net.lxshh.jammies.config.CommonConfig;
@@ -30,7 +30,7 @@ public class Jammies {
     public Jammies(IEventBus modEventBus, ModContainer modContainer) {
         JammiesComponents.DATA_COMPONENTS.register(modEventBus);
         JammiesRecipeSerializers.RECIPE_SERIALIZERS.register(modEventBus);
-        ModItemStackModifiers.ITEMSTACK_MODIFIER.register(modEventBus);
+        JammiesItemStackModifiers.ITEMSTACK_MODIFIER.register(modEventBus);
 
         ModDataManagers.DATA_MANAGERS.register(modEventBus);
 

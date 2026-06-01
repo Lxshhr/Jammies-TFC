@@ -4,6 +4,7 @@ import net.dries007.tfc.common.component.food.FoodCapability;
 import net.dries007.tfc.common.component.food.IFood;
 import net.dries007.tfc.common.recipes.outputs.ItemStackModifier;
 import net.dries007.tfc.common.recipes.outputs.ItemStackModifierType;
+import net.lxshh.jammies.registry.JammiesItemStackModifiers;
 import net.minecraft.world.item.ItemStack;
 
 public enum CopyExactDateModifier implements ItemStackModifier {
@@ -20,6 +21,6 @@ public enum CopyExactDateModifier implements ItemStackModifier {
 
     @Override
     public ItemStackModifierType<?> type() {
-        return ModItemStackModifiers.COPY_DATE_MODIFIER.get();
+        return JammiesItemStackModifiers.COPY_DATE_MODIFIER.get();
     }
 }
