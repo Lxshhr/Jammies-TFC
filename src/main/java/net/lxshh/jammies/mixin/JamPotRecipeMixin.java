@@ -15,7 +15,16 @@ public class JamPotRecipeMixin {
 
     @Shadow @Final private ItemStack jarredStack;
 
-    @Inject(method = "getResultItem", at = @At("HEAD"), cancellable = true, remap = false)
+    /**
+     * Switch the JEI result from jarredStackWithLid to jarredStack
+     */
+
+    @Inject(
+            method = "getResultItem",
+            at = @At("HEAD"),
+            cancellable = true,
+            remap = false
+    )
     private void jammies$getResultItem(HolderLookup.Provider registries, CallbackInfoReturnable<ItemStack> cir) {
         cir.setReturnValue(jarredStack);
     }

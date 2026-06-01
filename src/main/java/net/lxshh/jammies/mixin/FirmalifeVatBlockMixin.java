@@ -23,8 +23,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = VatBlock.class, remap = false)
 public class FirmalifeVatBlockMixin {
 
-    @Inject(method = "useItemOn", at = @At("HEAD"), cancellable = true, remap = false)
-    public void useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result, CallbackInfoReturnable<ItemInteractionResult> cir) {
+    /**
+     * Copy Lid Component into the result stack from the input stack
+     */
+
+    @Inject(
+            method = "useItemOn",
+            at = @At("HEAD"),
+            cancellable = true,
+            remap = false
+    )
+    public void jammies$useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result, CallbackInfoReturnable<ItemInteractionResult> cir) {
         if (!(level.getBlockEntity(pos) instanceof VatBlockEntity vat)) {
             return;
         }
@@ -35,23 +44,19 @@ public class FirmalifeVatBlockMixin {
             return;
         }
 
-        // Rework how sealed jars interact with the recipe
         if (Helpers.isItem(stack, TFCItems.EMPTY_JAR_WITH_LID)) {
-            // Copy component before we shrink from the existing jar
             LidDataComponent component = stack.get(JammiesComponents.JAR_LID_COMPONENT);
 
-            // Shrink the stack
             stack.shrink(1);
-
-            // Result
             ItemStack output = vat.takeOutput();
 
-            // Transfer the component to the result item
             if (component != null) {
                 output.set(JammiesComponents.JAR_LID_COMPONENT, component);
             }
+
             ItemHandlerHelper.giveItemToPlayer(player, output);
             cir.setReturnValue(ItemInteractionResult.sidedSuccess(level.isClientSide));
+
             return;
         }
         cir.setReturnValue(ItemInteractionResult.FAIL);

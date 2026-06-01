@@ -24,23 +24,26 @@ public abstract class JamPotRecipeOutputMixin {
 
     @Shadow @Final private ItemStack unsealedStack;
 
-    @Inject(method = "onInteract", at = @At("HEAD"), cancellable = true, remap = false)
-    private void jammies$onInteract(IPotInventory entity, Player player, ItemStack clickedWith, CallbackInfoReturnable<ItemInteractionResult> cir)
-    {
-        // Rework how sealed jars interact with the recipe
+    /**
+     * Copy Lid Component into the result stack from the input stack
+     */
+
+    @Inject(
+            method = "onInteract",
+            at = @At("HEAD"),
+            cancellable = true,
+            remap = false
+    )
+    private void jammies$onInteract(IPotInventory entity, Player player, ItemStack clickedWith, CallbackInfoReturnable<ItemInteractionResult> cir) {
         if (Helpers.isItem(clickedWith, TFCItems.EMPTY_JAR_WITH_LID)) {
-            // Copy component before we shrink from the existing jar
             LidDataComponent component = clickedWith.get(JammiesComponents.JAR_LID_COMPONENT);
 
-            // Shrink Both Stack
             clickedWith.shrink(1);
             unsealedStack.shrink(1);
 
-            // Result
             ItemStack result = sealedStack.copy();
             result.setCount(1);
 
-            // Transfer the component to the result item
             if (component != null) {
                 result.set(JammiesComponents.JAR_LID_COMPONENT, component);
             }
