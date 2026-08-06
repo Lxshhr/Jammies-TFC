@@ -11,7 +11,7 @@ public class JeiIntegration implements IModPlugin {
 
     @Override
     public ResourceLocation getPluginUid() {
-        return Jammies.loc("jei");
+        return Jammies.identifier("jei");
     }
 
     @Override

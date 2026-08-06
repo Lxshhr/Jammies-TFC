@@ -52,7 +52,7 @@ public class Jammies {
         event.register(ModDataManagers.REGISTRY);
     }
 
-    public static ResourceLocation loc(String name) {
+    public static ResourceLocation identifier(String name) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
     }
 }

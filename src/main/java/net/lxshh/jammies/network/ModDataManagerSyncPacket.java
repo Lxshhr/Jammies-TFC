@@ -14,7 +14,7 @@ import java.util.Map;
 public record ModDataManagerSyncPacket(Map<ResourceLocation, LidProperties> values) implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<ModDataManagerSyncPacket> TYPE =
-            new Type<>(Jammies.loc("data_manager_sync"));
+            new Type<>(Jammies.identifier("data_manager_sync"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ModDataManagerSyncPacket> CODEC =
             ByteBufCodecs.<RegistryFriendlyByteBuf, ResourceLocation, LidProperties, Map<ResourceLocation, LidProperties>>map(

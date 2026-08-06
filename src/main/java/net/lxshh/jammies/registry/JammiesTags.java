@@ -7,6 +7,6 @@ import net.minecraft.world.item.Item;
 
 public class JammiesTags {
     public static class Items {
-        public static final TagKey<Item> LIDS = TagKey.create(Registries.ITEM, Jammies.loc("lids"));
+        public static final TagKey<Item> LIDS = TagKey.create(Registries.ITEM, Jammies.identifier("lids"));
     }
 }

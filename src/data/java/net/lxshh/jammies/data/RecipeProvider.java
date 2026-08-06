@@ -1,15 +1,24 @@
 package net.lxshh.jammies.data;
 
 import com.eerussianguy.firmalife.FirmaLife;
+import com.eerussianguy.firmalife.common.FLHelpers;
+import com.eerussianguy.firmalife.common.items.FLFood;
 import com.eerussianguy.firmalife.common.items.FLItems;
+import mod.traister101.datagenutils.data.recipe.tfc.AdvancedCraftingRecipeBuilder;
+import net.dries007.tfc.common.component.food.FoodTraits;
 import net.dries007.tfc.common.items.TFCItems;
 import net.dries007.tfc.common.recipes.ingredients.AndIngredient;
 import net.dries007.tfc.common.recipes.ingredients.NotRottenIngredient;
+import net.dries007.tfc.common.recipes.outputs.AddTraitModifier;
 import net.dries007.tfc.common.recipes.outputs.ItemStackProvider;
+import net.dries007.tfc.util.Helpers;
 import net.kuba807.kubastfca.common.item.KubastfcaItems;
 import net.kuba807.kubastfca.kubastfca;
 import net.lxshh.jammies.Jammies;
 import net.lxshh.jammies.common.recipes.output.CopyExactDateModifier;
+import net.lxshh.jammies.common.recipes.output.CopyLidDataModifier;
+import net.lxshh.jammies.data.recipe.JamJarSealingRecipeBuilder;
+import net.lxshh.jammies.data.recipe.JamJarUnsealingRecipeBuilder;
 import net.lxshh.jammies.registry.JammiesTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -32,11 +41,11 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
     protected void buildRecipes(RecipeOutput output) {
         // TFC Recipes
         TFCItems.UNSEALED_FRUIT_PRESERVES.forEach((food, item) ->
-            sealingRecipe(item, TFCItems.FRUIT_PRESERVES.get(food), "crafting/jar/" + food.getSerializedName() + "_sealing", output)
+            sealingRecipe(item, TFCItems.FRUIT_PRESERVES.get(food), Jammies.identifier("crafting/jar/" + food.getSerializedName() + "_preserve"), output)
         );
 
         TFCItems.FRUIT_PRESERVES.forEach((food, item) ->
-            unsealingRecipe(item, TFCItems.UNSEALED_FRUIT_PRESERVES.get(food), "crafting/jar/" + food.getSerializedName() + "_unsealing", output)
+            unsealingRecipe(item, TFCItems.UNSEALED_FRUIT_PRESERVES.get(food), Helpers.identifier("crafting/jar/" + food.getSerializedName() + "_unsealed"), output)
         );
 
         JamJarSealingRecipeBuilder.sealing(
@@ -44,63 +53,72 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
                         Ingredient.of(TFCItems.EMPTY_JAR),
                         ItemStackProvider.of(new ItemStack(TFCItems.EMPTY_JAR_WITH_LID)))
                 .unlockedBy("has_jar", has(TFCItems.EMPTY_JAR))
-                .save(output, ResourceLocation.fromNamespaceAndPath(Jammies.MOD_ID, "crafting/empty_jar_with_lid"));
+                .save(output, Helpers.identifier("crafting/empty_jar_with_lid"));
 
         JamJarUnsealingRecipeBuilder.unSealing(
                 Ingredient.of(TFCItems.EMPTY_JAR_WITH_LID),
                 ItemStackProvider.of(new ItemStack(TFCItems.EMPTY_JAR)))
                 .alwaysReturnLid()
                 .unlockedBy("has_jar", has(TFCItems.EMPTY_JAR_WITH_LID))
-                .save(output, Jammies.loc("crafting/empty_jar"));
+                .save(output, Jammies.identifier("crafting/empty_jar"));
 
         // Firmalife Compat
         FLItems.UNSEALED_FRUIT_PRESERVES.forEach((food, item) ->
-                sealingRecipe(item, FLItems.FRUIT_PRESERVES.get(food), "crafting/jar/fl/" + food.getSerializedName() + "_sealing",
+                sealingRecipe(item, FLItems.FRUIT_PRESERVES.get(food), Jammies.identifier("crafting/jar/" + food.getSerializedName() + "_preserve"),
                         output.withConditions(modLoaded(FirmaLife.MOD_ID)))
         );
 
         FLItems.FRUIT_PRESERVES.forEach((food, item) ->
-                unsealingRecipe(item, FLItems.UNSEALED_FRUIT_PRESERVES.get(food), "crafting/jar/fl/" + food.getSerializedName() + "_unsealing",
+                unsealingRecipe(item, FLItems.UNSEALED_FRUIT_PRESERVES.get(food), FLHelpers.identifier("crafting/jar/" + food.getSerializedName() + "_unsealed"),
                         output.withConditions(modLoaded(FirmaLife.MOD_ID)))
         );
 
+        AdvancedCraftingRecipeBuilder.shaped("", ItemStackProvider.of(new ItemStack(FLItems.HONEY_JAR), AddTraitModifier.of(FoodTraits.CANNED), CopyLidDataModifier.INSTANCE))
+                .pattern("XXX")
+                .pattern("XYX")
+                .pattern("XXX")
+                .define('X', notRotten(Ingredient.of(FLItems.FOODS.get(FLFood.RAW_HONEY))))
+                .inputItem('Y', TFCItems.EMPTY_JAR_WITH_LID, 1, 1)
+                .unlockedBy("has_jar", has(TFCItems.JAR_LID))
+                .save(output.withConditions(modLoaded(FirmaLife.MOD_ID)), FLHelpers.identifier("crafting/jarring_food/raw_honey"));
+
         // KubasTFC Compat
-        sealingRecipe(KubastfcaItems.UNSEALED_MEAT_WEK, KubastfcaItems.MEAT_WEK, "crafting/jar/kubas/meat_close",
+        sealingRecipe(KubastfcaItems.UNSEALED_MEAT_WEK, KubastfcaItems.MEAT_WEK, Jammies.identifier("crafting/jar/meat_close"),
                 output.withConditions(modLoaded(kubastfca.MODID)));
 
-        sealingRecipe(KubastfcaItems.UNSEALED_MIX_WEK, KubastfcaItems.MIX_WEK, "crafting/jar/kubas/mix_close",
+        sealingRecipe(KubastfcaItems.UNSEALED_MIX_WEK, KubastfcaItems.MIX_WEK, Jammies.identifier("crafting/jar/mix_close"),
                 output.withConditions(modLoaded(kubastfca.MODID)));
 
-        sealingRecipe(KubastfcaItems.UNSEALED_VEGGIE_WEK, KubastfcaItems.VEGGIE_WEK, "crafting/jar/kubas/veggie_close",
+        sealingRecipe(KubastfcaItems.UNSEALED_VEGGIE_WEK, KubastfcaItems.VEGGIE_WEK, Jammies.identifier("crafting/jar/veggie_close"),
                 output.withConditions(modLoaded(kubastfca.MODID)));
 
-        unsealingRecipe(KubastfcaItems.MEAT_WEK, KubastfcaItems.UNSEALED_MEAT_WEK, "crafting/jar/kubas/meat_open",
+        unsealingRecipe(KubastfcaItems.MEAT_WEK, KubastfcaItems.UNSEALED_MEAT_WEK, ResourceLocation.fromNamespaceAndPath(kubastfca.MODID, "food/jar/meat_open"),
                 output.withConditions(modLoaded(kubastfca.MODID)));
 
-        unsealingRecipe(KubastfcaItems.MIX_WEK, KubastfcaItems.UNSEALED_MIX_WEK, "crafting/jar/kubas/mix_open",
+        unsealingRecipe(KubastfcaItems.MIX_WEK, KubastfcaItems.UNSEALED_MIX_WEK, ResourceLocation.fromNamespaceAndPath(kubastfca.MODID, "food/jar/mix_open"),
                 output.withConditions(modLoaded(kubastfca.MODID)));
 
-        unsealingRecipe(KubastfcaItems.VEGGIE_WEK, KubastfcaItems.UNSEALED_VEGGIE_WEK, "crafting/jar/kubas/veggie_open",
+        unsealingRecipe(KubastfcaItems.VEGGIE_WEK, KubastfcaItems.UNSEALED_VEGGIE_WEK, ResourceLocation.fromNamespaceAndPath(kubastfca.MODID, "food/jar/veggie_open"),
                 output.withConditions(modLoaded(kubastfca.MODID)));
     }
 
-    private void sealingRecipe(ItemLike ingredient, ItemLike result, String rl, RecipeOutput output) {
+    private void sealingRecipe(ItemLike ingredient, ItemLike result, ResourceLocation rl, RecipeOutput output) {
         JamJarSealingRecipeBuilder.sealing(
                 JammiesTags.Items.LIDS,
                 notRotten(Ingredient.of(ingredient)),
                 ItemStackProvider.of(new ItemStack(result), CopyExactDateModifier.INSTANCE)
             )
             .unlockedBy("has_jar", has(ingredient))
-            .save(output, Jammies.loc(rl));
+            .save(output, rl);
     }
 
-    private void unsealingRecipe(ItemLike ingredient, ItemLike result, String rl, RecipeOutput output) {
+    private void unsealingRecipe(ItemLike ingredient, ItemLike result, ResourceLocation rl, RecipeOutput output) {
         JamJarUnsealingRecipeBuilder.unSealing(
                 Ingredient.of(ingredient),
                 ItemStackProvider.of(new ItemStack(result), CopyExactDateModifier.INSTANCE)
         )
         .unlockedBy("has_jar", has(ingredient))
-        .save(output, Jammies.loc(rl));
+        .save(output, rl);
     }
 
     private Ingredient notRotten(Ingredient food) {
