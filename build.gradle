@@ -5,9 +5,10 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.140'
 }
 
+group = mod_group_id
+version = "${minecraft_version}-${mod_version}"
+
 base {
-    group = mod_group_id
-    version = "${minecraft_version}-${mod_version}"
     archivesName = mod_id
 }
 
@@ -21,6 +22,7 @@ sourceSets {
     main {
         resources {
             srcDir 'src/generated/resources'
+            exclude 'src/generated/**/.cache'
         }
     }
     create("data") {
@@ -79,7 +81,6 @@ neoForge {
     }
 }
 
-
 configurations {
     runtimeClasspath.extendsFrom localRuntime
 }
@@ -135,17 +136,11 @@ dependencies {
     runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     // Jade
-    // implementation "maven.modrinth:jade:${jade_version}"
+    // runtimeOnly "maven.modrinth:jade:${jade_version}"
 
-    // Firmalife
+    // Compats
     implementation "maven.modrinth:firmalife:${firmalife_version}"
-
-    // Kuba's TFC additions
     implementation "curse.maven:kubas-tfc-additions-1213369:${kubastfca_version}"
-}
-
-tasks.named('jar', Jar) {
-    exclude '.cache'
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
