@@ -49,7 +49,7 @@ public abstract class JamPotRecipeOutputMixin {
             }
             ItemHandlerHelper.giveItemToPlayer(player, result);
             cir.setReturnValue(ItemInteractionResult.sidedSuccess(player.level().isClientSide));
+            return;
         }
-        cir.setReturnValue(ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION);
     }
 }
