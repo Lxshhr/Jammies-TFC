@@ -1,4 +1,4 @@
-package net.lxshh.jammies.common.recipes.output;
+package net.lxshh.jammies.common.recipes.data;
 
 import net.dries007.tfc.common.component.food.FoodCapability;
 import net.dries007.tfc.common.component.food.IFood;
@@ -12,11 +12,13 @@ public enum CopyExactDateModifier implements ItemStackModifier {
 
     @Override
     public ItemStack apply(ItemStack itemStack, ItemStack input, Context context) {
-        IFood iFoodCaps = FoodCapability.get(input);
-        if (iFoodCaps != null) {
-            return FoodCapability.setCreationDate(itemStack, iFoodCaps.getCreationDate());
+        ItemStack returnStack = FoodCapability.updateFoodFromPrevious(input, itemStack);
+        IFood iFood = FoodCapability.get(input);
+        if (iFood != null) {
+            FoodCapability.setCreationDate(returnStack, iFood.getCreationDate());
         }
-        return itemStack;
+
+        return returnStack;
     }
 
     @Override

@@ -5,9 +5,9 @@ import net.dries007.tfc.common.recipes.outputs.ItemStackModifier;
 import net.dries007.tfc.common.recipes.outputs.ItemStackModifierType;
 import net.dries007.tfc.common.recipes.outputs.ItemStackModifiers;
 import net.lxshh.jammies.Jammies;
-import net.lxshh.jammies.common.recipes.output.AddLidDataModifier;
-import net.lxshh.jammies.common.recipes.output.CopyExactDateModifier;
-import net.lxshh.jammies.common.recipes.output.CopyLidDataModifier;
+import net.lxshh.jammies.common.recipes.data.AddLidDataModifier;
+import net.lxshh.jammies.common.recipes.data.CopyExactDateModifier;
+import net.lxshh.jammies.common.recipes.data.CopyLidDataModifier;
 import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.neoforge.registries.DeferredRegister;
 

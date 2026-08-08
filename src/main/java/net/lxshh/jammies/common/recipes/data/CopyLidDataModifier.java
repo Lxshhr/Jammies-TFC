@@ -1,4 +1,4 @@
-package net.lxshh.jammies.common.recipes.output;
+package net.lxshh.jammies.common.recipes.data;
 
 import net.dries007.tfc.common.recipes.outputs.ItemStackModifier;
 import net.dries007.tfc.common.recipes.outputs.ItemStackModifierType;

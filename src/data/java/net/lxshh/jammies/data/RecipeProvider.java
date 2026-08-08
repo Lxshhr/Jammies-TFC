@@ -10,13 +10,14 @@ import net.dries007.tfc.common.items.TFCItems;
 import net.dries007.tfc.common.recipes.ingredients.AndIngredient;
 import net.dries007.tfc.common.recipes.ingredients.NotRottenIngredient;
 import net.dries007.tfc.common.recipes.outputs.AddTraitModifier;
+import net.dries007.tfc.common.recipes.outputs.CopyFoodModifier;
 import net.dries007.tfc.common.recipes.outputs.ItemStackProvider;
 import net.dries007.tfc.util.Helpers;
 import net.kuba807.kubastfca.common.item.KubastfcaItems;
 import net.kuba807.kubastfca.kubastfca;
 import net.lxshh.jammies.Jammies;
-import net.lxshh.jammies.common.recipes.output.CopyExactDateModifier;
-import net.lxshh.jammies.common.recipes.output.CopyLidDataModifier;
+import net.lxshh.jammies.common.recipes.data.CopyExactDateModifier;
+import net.lxshh.jammies.common.recipes.data.CopyLidDataModifier;
 import net.lxshh.jammies.data.recipe.JamJarSealingRecipeBuilder;
 import net.lxshh.jammies.data.recipe.JamJarUnsealingRecipeBuilder;
 import net.lxshh.jammies.registry.JammiesTags;
@@ -115,7 +116,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider im
     private void unsealingRecipe(ItemLike ingredient, ItemLike result, ResourceLocation rl, RecipeOutput output) {
         JamJarUnsealingRecipeBuilder.unSealing(
                 Ingredient.of(ingredient),
-                ItemStackProvider.of(new ItemStack(result), CopyExactDateModifier.INSTANCE)
+                ItemStackProvider.of(new ItemStack(result), CopyFoodModifier.INSTANCE)
         )
         .unlockedBy("has_jar", has(ingredient))
         .save(output, rl);
